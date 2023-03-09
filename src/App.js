@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          I hate Fucking Windows
+          Learn React
         </a>
       </header>
     </div>
