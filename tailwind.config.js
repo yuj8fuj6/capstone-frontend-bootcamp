@@ -23,7 +23,8 @@ module.exports = {
       backgroundColor: {
         "white-bg": "#FFFFFF",
         "lightgrey-bg": "#F2F2F1",
-        "darkgrey-bg": "#374a48",
+        "darkgreen-bg": "#374a48",
+        "lightgreen-bg": "#698c85",
         "half-transparent": "rgba(0, 0, 0, 0.5)",
       },
       borderWidth: {
@@ -48,7 +49,8 @@ module.exports = {
         590: "590px",
       },
       colors: {
-        darkgrey: "#374a48",
+        darkgreen: "#374a48",
+        lightgreen: "#698c85",
         lightgrey: "#F2F2F1",
       },
       aspectRatio: {
