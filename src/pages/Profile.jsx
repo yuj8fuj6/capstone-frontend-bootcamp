@@ -12,9 +12,11 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="max-h-screen max-w-screen overscroll-none">
+    <div className="bg-lightgrey h-full w-full overscroll-none">
       <NavBar />
-      Profile
+      <div className="flex flex-row justify-start mt-10 text-2xl font-bold pl-20">
+        User Profile
+      </div>
     </div>
   );
 };

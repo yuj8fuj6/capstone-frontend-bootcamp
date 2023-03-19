@@ -2,7 +2,7 @@ import React from 'react'
 
 const MapDisplay = () => {
   return (
-    <div>MapDisplay</div>
+    <div className="text-darkgreen">MapDisplay</div>
   )
 }
 

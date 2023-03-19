@@ -12,9 +12,11 @@ const Circular = () => {
   }, []);
 
   return (
-    <div className="max-h-screen max-w-screen overscroll-none">
+    <div className="bg-lightgrey h-full w-full overscroll-none">
       <NavBar />
-      Circular
+      <div className="flex flex-row justify-start mt-10 text-2xl font-bold pl-20">
+        Circular
+      </div>
     </div>
   );
 };

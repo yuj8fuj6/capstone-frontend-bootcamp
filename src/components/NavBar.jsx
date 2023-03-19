@@ -33,13 +33,13 @@ const NavBar = () => {
         <img
           src={require("../assets/app_logo_small.png")}
           alt="app-logo-page"
-          className="w-[90px] h-28 drop-shadow-xl mt-10"
+          className="w-[80px] h-24 drop-shadow-xl mt-5"
         />
       </Link>
       <ul className="menu menu-horizontal px-1">
         {navbarMenuItems.map((item) => (
           <li>
-            <Link to={item.page} className="justify-center-link">
+            <Link to={item.page} className="justify-center-link pl-5">
               <div className="text-4xl drop-shadow-sm">{item.icon}</div>
               <div className="text-xs drop-shadow-sm font-semibold">
                 {item.text}
@@ -48,7 +48,7 @@ const NavBar = () => {
           </li>
         ))}
         <li>
-          <button className="justify-center-link" onClick={handleLogout}>
+          <button className="justify-center-link pl-5" onClick={handleLogout}>
             <div className="text-4xl drop-shadow-sm">
               <BsBoxArrowRight />
             </div>
