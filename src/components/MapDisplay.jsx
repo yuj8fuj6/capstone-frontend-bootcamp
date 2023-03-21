@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import * as L from "leaflet";
 import { MapContext } from "../contexts/MapContext";
 
-const zoomLevel = 15;
+const zoomLevel = 12;
 
 const MapDisplay = () => {
   const { locationData, setLocationData } = useContext(MapContext);
@@ -25,7 +25,7 @@ const MapDisplay = () => {
         center={center}
         zoom={zoomLevel}
         scrollWheelZoom={true}
-        className="w-[1200px] h-[700px] rounded-xl ml-20 mt-10"
+        className="w-[1100px] h-[700px] rounded-xl ml-20 mt-10"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

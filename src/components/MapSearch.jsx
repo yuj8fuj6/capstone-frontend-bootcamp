@@ -1,88 +1,109 @@
 import React, { useState, useEffect, useContext } from "react";
-import Button from "./Button";
 import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import { MapContext } from "../contexts/MapContext";
+import axios from "axios";
+import * as L from "leaflet";
+import { setView } from "react-leaflet";
 
 const MapSearch = () => {
   const { locationData, setLocationData } = useContext(MapContext);
 
+  const [address, setAddress] = useState("");
+  const [planning, setPlanning] = useState("");
+
+  const initialValues = {
+    postal_code: "",
+    address: address,
+    planning_details: planning,
+  };
+
+  const postalCodeValidation = Yup.object().shape({
+    postal_code: Yup.string()
+      .required("Input a valid postal code!")
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(6, "Must be exactly 6 digits")
+      .max(6, "Must be exactly 6 digits"),
+  });
+
+  const handleSubmit = async (values) => {
+    await axios
+      .get(
+        `https://developers.onemap.sg/commonapi/search?searchVal=${values.postal_code}&returnGeom=Y&getAddrDetails=Y&pageNum=1`,
+      )
+      .then((res) => {
+        const { data } = res;
+        const location = data.results[0];
+        setAddress(location.ADDRESS);
+        setLocationData([location.LATITUDE, location.LONGITUDE]);
+      });
+  };
+
   return (
     <div className="text-darkgreen">
-      {/* <Formik
+      <Formik
         initialValues={initialValues}
+        validationSchema={postalCodeValidation}
         onSubmit={(values, { resetForm }) => {
           handleSubmit(values);
           resetForm();
         }}
       >
         {(props) => {
-          console.log(props.values);
           return (
-            <Form className="grid grid-cols-1">
-              <label htmlFor="code" className="text-sm font-bold mt-4">
-                Course Code
+            <Form className="grid grid-cols-1 mr-20">
+              <label htmlFor="postal" className="font-bold mt-4 text-left">
+                Search Postal Code
               </label>
-              <select
+              <input
                 type="text"
-                id="code"
-                name="code"
-                className="border-darkgrey border-1 rounded text-sm font-normal indent-3"
-                value={props.values.short || props.values.code}
+                id="postal_code"
+                name="postal_code"
+                className="border-lightgreen border-1 rounded-xl text-base font-normal p-2 bg-white"
+                maxLength="6"
+                size="6"
+                value={props.values.postal_code}
                 onChange={props.handleChange}
+                onBlur={props.handleBlur}
+                placeholder="Input 6-digit Postal Code here!"
+              />
+              {props.errors.postal_code && props.touched.postal_code ? (
+                <div className="text-xs text-red-600 text-left">
+                  {props.errors.postal_code}
+                </div>
+              ) : null}
+              <button
+                className="rounded-full border-2 border-darkgreen p-1 font-bold mt-4 hover:bg-lightgreen w-1/5 text-sm"
+                type="submit"
               >
-                {allCourseData &&
-                  filteredCourses.map((course) => (
-                    <option
-                      value={course.course_code}
-                      label={course.course_code}
-                    >
-                      {course.course_code}
-                    </option>
-                  ))}
-              </select>
-              <label className="text-sm font-bold mt-4">Course Title</label>
-              <select
-                type="text"
-                id="name"
-                name="name"
-                className="border-darkgrey border-1 rounded text-sm font-normal indent-3"
-                value={props.values.short || props.values.name}
-                onChange={props.handleChange}
-              >
-                {allCourseData &&
-                  filteredCourses.map((course) => (
-                    <option
-                      value={course.course_name}
-                      label={course.course_name}
-                    >
-                      {course.course_name}
-                    </option>
-                  ))}
-              </select>
-              <label className="text-sm font-bold mt-4">
-                Course Description
+                Search
+              </button>
+              <label className="font-bold mt-4 text-left">
+                Address Details
               </label>
               <textarea
                 type="text"
-                id="content"
-                name="content"
-                className="border-darkgrey border-1 rounded h-[125px] text-sm font-normal p-3"
-                value={props.values.short || props.values.content}
-                onChange={props.handleChange}
-                placeholder="Post your content here!"
+                id="address"
+                name="address"
+                className="rounded-xl h-[80px] text-sm font-normal p-3 bg-white"
+                value={address}
+                readOnly
               />
-              <div className="flex flex-row justify-center">
-                <button
-                  className="bg-darkgrey rounded-full border-1 p-1 text-yellow font-bold px-3 mt-4 hover:bg-yellow hover:text-darkgrey"
-                  type="submit"
-                >
-                  Confirm
-                </button>
-              </div>
+              <label className="font-bold mt-4 text-left">
+                Planning Details
+              </label>
+              <textarea
+                type="text"
+                id="planning_details"
+                name="planning_details"
+                className="rounded-xl h-[450px] text-sm font-normal p-3 bg-white"
+                value={props.values.planning_details}
+                readOnly
+              />
             </Form>
           );
         }}
-      </Formik> */}
+      </Formik>
     </div>
   );
 };
