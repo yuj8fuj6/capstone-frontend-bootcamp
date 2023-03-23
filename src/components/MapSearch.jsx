@@ -37,6 +37,23 @@ const MapSearch = () => {
         setAddress(location.ADDRESS);
         setLocationData([location.LATITUDE, location.LONGITUDE]);
       });
+    // await axios
+    //   .get("https://www.ura.gov.sg/uraDataService/invokeUraDS", {
+    //     params: {
+    //       service: "Planning_Decision",
+    //       last_dnload_date: "15/06/2022",
+    //     },
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       AccessKey: "",
+    //       Token:
+    //         "",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     const { data } = res;
+    //     console.log(data);
+    //   });
   };
 
   return (
