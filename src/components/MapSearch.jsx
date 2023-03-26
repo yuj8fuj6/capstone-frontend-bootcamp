@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { MapContext } from "../contexts/MapContext";
 import axios from "axios";
-import * as L from "leaflet";
-import { setView } from "react-leaflet";
+
+import { BACKEND_URL } from "../constants.js";
 
 const MapSearch = () => {
   const { locationData, setLocationData } = useContext(MapContext);
 
   const [address, setAddress] = useState("");
-  const [planning, setPlanning] = useState("");
+  const [addressNoPostalCode, setAddressNoPostalCode] = useState("");
+  const [planningParam, setPlanningParam] = useState({});
+  const [planningType, setPlanningType] = useState({});
 
   const initialValues = {
     postal_code: "",
     address: address,
-    planning_details: planning,
   };
 
   const postalCodeValidation = Yup.object().shape({
@@ -36,24 +37,55 @@ const MapSearch = () => {
         const location = data.results[0];
         setAddress(location.ADDRESS);
         setLocationData([location.LATITUDE, location.LONGITUDE]);
+        setAddressNoPostalCode(`${location.BLK_NO} ${location.ROAD_NAME}`);
       });
+    // URA API call does not work!
     // await axios
-    //   .get("https://www.ura.gov.sg/uraDataService/invokeUraDS", {
-    //     params: {
-    //       service: "Planning_Decision",
-    //       last_dnload_date: "15/06/2022",
+    //   .get(
+    //     "https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Planning_Decision&last_dnload_date=15/06/2022",
+    //     {
+    //       params: {
+    //         service: "Planning_Decision",
+    //         last_dnload_date: "15/06/2022",
+    //       },
+    //       headers: {
+    //         "Access-Control-Allow-Origin": "*",
+    //         AccessKey: "",
+    //         Token:
+    //           "",
+    //       },
     //     },
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "*",
-    //       AccessKey: "",
-    //       Token:
-    //         "",
-    //     },
-    //   })
+    //   )
     //   .then((res) => {
     //     const { data } = res;
     //     console.log(data);
     //   });
+    await axios
+      .get(`${BACKEND_URL}/maps/planningType?postal_code=${values.postal_code}`)
+      .then((res) => {
+        setPlanningType(res.data).catch((err) => {
+          console.log(err);
+        });
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/maps/planningParam?address=${addressNoPostalCode}`)
+      .then((res) => {
+        setPlanningParam(res.data).catch((err) => {
+          console.log(err);
+        });
+      });
+  }, [addressNoPostalCode]);
+
+  const stingifyKey = (str) => {
+    var i,
+      frags = str.split("_");
+    for (i = 0; i < frags.length; i++) {
+      frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+    }
+    return frags.join(" ");
   };
 
   return (
@@ -109,14 +141,28 @@ const MapSearch = () => {
               <label className="font-bold mt-4 text-left">
                 Planning Details
               </label>
-              <textarea
-                type="text"
-                id="planning_details"
-                name="planning_details"
-                className="rounded-xl h-[450px] text-sm font-normal p-3 bg-white"
-                value={props.values.planning_details}
-                readOnly
-              />
+              <div className="rounded-xl h-[450px] text-sm font-normal p-3 bg-white text-left">
+                <h1 className="font-bold text-base">Planning Parameters</h1>
+                {planningType
+                  ? Object.entries(planningType).map(([key, value], i) => (
+                      <li key={i}>
+                        {stingifyKey(key)} :{" "}
+                        <span className="font-bold">{value}</span>
+                      </li>
+                    ))
+                  : null}
+                <div className="rounded-xl border-1 drop-shadow-md bg-white w-full px-2 mt-2 overflow-auto h-[200px]">
+                  <h1 className="font-bold">Recent Planning Decisions</h1>
+                  {planningParam
+                    ? Object.entries(planningParam).map(([key, value], i) => (
+                        <li key={i} className="text-xs">
+                          {stingifyKey(key)} :{" "}
+                          <span className="font-bold">{value}</span>
+                        </li>
+                      ))
+                    : null}
+                </div>
+              </div>
             </Form>
           );
         }}

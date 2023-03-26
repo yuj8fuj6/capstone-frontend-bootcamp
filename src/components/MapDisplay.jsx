@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import React, { useContext, useEffect } from "react";
+import { MapContainer, TileLayer, Popup, Marker, useMap } from "react-leaflet";
 import * as L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import { MapContext } from "../contexts/MapContext";
 
-const zoomLevel = 12;
+const zoomLevel = 17;
 
 const MapDisplay = () => {
   const { locationData, setLocationData } = useContext(MapContext);
@@ -19,6 +20,14 @@ const MapDisplay = () => {
       "https://chart.googleapis.com/chart?chst=d_map_xpin_icon_withshadow&chld=pin_star|home|FF0000|FFFF00",
   });
 
+  // set view
+  function SetViewComponent() {
+    const map = useMap();
+    useEffect(() => {
+      map.flyTo(locationData, 17);
+    }, [locationData]);
+  }
+
   return (
     <div className="text-darkgreen">
       <MapContainer
@@ -27,14 +36,13 @@ const MapDisplay = () => {
         scrollWheelZoom={true}
         className="w-[1100px] h-[700px] rounded-xl ml-20 mt-10"
       >
+        <SetViewComponent />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={center} icon={redIcon}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          <Popup>{locationData}</Popup>
         </Marker>
       </MapContainer>
     </div>
