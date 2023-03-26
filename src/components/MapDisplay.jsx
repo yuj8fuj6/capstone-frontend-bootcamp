@@ -19,6 +19,8 @@ const MapDisplay = () => {
       "https://chart.googleapis.com/chart?chst=d_map_xpin_icon_withshadow&chld=pin_star|home|FF0000|FFFF00",
   });
 
+  // React Control - set view
+
   return (
     <div className="text-darkgreen">
       <MapContainer
@@ -32,9 +34,7 @@ const MapDisplay = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={center} icon={redIcon}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          <Popup>{locationData}</Popup>
         </Marker>
       </MapContainer>
     </div>

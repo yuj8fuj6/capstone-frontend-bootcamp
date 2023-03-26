@@ -11,6 +11,8 @@ const Circular = () => {
     }
   }, []);
 
+  // Cron job for the backend
+
   return (
     <div className="bg-lightgrey h-full w-full overscroll-none">
       <NavBar />
