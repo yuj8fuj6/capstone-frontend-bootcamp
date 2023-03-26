@@ -3,8 +3,6 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { MapContext } from "../contexts/MapContext";
 import axios from "axios";
-import * as L from "leaflet";
-import { setView } from "react-leaflet";
 
 import { BACKEND_URL } from "../constants.js";
 
@@ -89,9 +87,6 @@ const MapSearch = () => {
     }
     return frags.join(" ");
   };
-
-  console.log(planningType);
-  console.log(planningParam);
 
   return (
     <div className="text-darkgreen">
