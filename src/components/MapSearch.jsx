@@ -151,7 +151,7 @@ const MapSearch = () => {
                       </li>
                     ))
                   : null}
-                <div className="rounded-xl border-1 drop-shadow-md bg-white w-full px-2 mt-2 overflow-auto h-[200px]">
+                <div className="rounded-xl border-1 drop-shadow-md bg-white w-full px-2 mt-2 overflow-auto h-[175px]">
                   <h1 className="font-bold">Recent Planning Decisions</h1>
                   {planningParam
                     ? Object.entries(planningParam).map(([key, value], i) => (
