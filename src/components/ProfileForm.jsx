@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Formik, Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
@@ -166,21 +166,22 @@ const ProfileForm = () => {
     validationSchema: profileValidation,
   });
 
+  const uraApiCall = debounce(async () => {
+    await axios
+      .get(
+        `https://developers.onemap.sg/commonapi/search?searchVal=${formik.values.postal_code}&returnGeom=Y&getAddrDetails=Y&pageNum=1`,
+      )
+      .then((res) => {
+        const { data } = res;
+        const location = data.results[0];
+        formik.setFieldValue("block_no", location.BLK_NO);
+        formik.setFieldValue("street_name", location.ROAD_NAME);
+      });
+  }, 2000);
+
   useEffect(() => {
-    if (formik.values.postal_code) {
-        axios
-          .get(
-            `https://developers.onemap.sg/commonapi/search?searchVal=${formik.values.postal_code}&returnGeom=Y&getAddrDetails=Y&pageNum=1`,
-          )
-          .then((res) => {
-            const { data } = res;
-            const location = data.results[0];
-            formik.setFieldValue("block_no", location.BLK_NO);
-            formik.setFieldValue("street_name", location.ROAD_NAME);
-          }
-      );
-    }
-  }, [formik.values.postal_code, currentUser]);
+    uraApiCall();
+  }, [formik.values.postal_code, uraApiCall]);
 
   return (
     <div className="text-darkgreen grid grid-cols-3">
