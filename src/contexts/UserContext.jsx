@@ -16,7 +16,7 @@ export const UserContextProvider = (props) => {
       const { email } = user;
       setEmail(email);
     }
-  }, [user, isAuthenticated]);
+  }, [user, isAuthenticated, isLoading]);
 
   useEffect(() => {
     if (email) {
