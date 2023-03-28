@@ -14,7 +14,7 @@ import { BACKEND_URL } from "../constants";
 const ProfileForm = () => {
   const { userData, setUserData } = useContext(UserContext);
 
-  const [currentUser, setCurrentUserData] = useState({
+  const [currentUser, setCurrentUser] = useState({
     name: userData.name,
     dob: userData.dob,
     gender: userData.gender,
@@ -52,6 +52,8 @@ const ProfileForm = () => {
     photo_url,
   } = currentUser;
 
+  const [stateChange, setStateChange] = useState(true);
+
   const debounce = require("lodash.debounce");
 
   const profileValidation = Yup.object().shape({
@@ -81,8 +83,6 @@ const ProfileForm = () => {
       .min(6, "Must be exactly 6 digits")
       .max(6, "Must be exactly 6 digits"),
   });
-
-  const handleSubmit = async (values) => {};
 
   //Date of Birth Field
   const DatePickerField = ({ name, value, onChange, props }) => {
@@ -182,6 +182,29 @@ const ProfileForm = () => {
   useEffect(() => {
     uraApiCall();
   }, [formik.values.postal_code, uraApiCall]);
+
+  useEffect(() => {
+    if (
+      !(JSON.stringify(formik.values) === JSON.stringify(formik.initialValues))
+    ) {
+      setStateChange(false);
+    }
+  }, [formik.values]);
+
+  const handleSubmit = async (values) => {
+    await axios
+      .put(`${BACKEND_URL}/users/update/${userData.id}`, {
+        name: `${values.name}`,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserData({ ...userData, name: res.data.userData });
+        setCurrentUser({ ...currentUser, name: res.data.userData });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="text-darkgreen grid grid-cols-3">
@@ -478,8 +501,9 @@ const ProfileForm = () => {
           ) : null}
         </div>
         <button
-          className="rounded-full border-2 border-darkgreen p-1 font-bold mt-4 hover:bg-lightgreen w-1/5 text-sm"
+          className="rounded-full border-2 border-darkgreen p-1 font-bold mt-4 hover:bg-lightgreen w-1/5 text-sm disabled:border-slate-300 disabled:text-slate-300"
           type="submit"
+          disabled={stateChange}
         >
           Update
         </button>
