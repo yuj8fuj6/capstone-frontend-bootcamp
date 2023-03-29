@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { makeOption } from "./Option";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
+import { Modal } from "antd";
+import { BsCheckCircle } from "react-icons/bs";
 
 import { BACKEND_URL } from "../constants";
 
@@ -53,6 +55,7 @@ const ProfileForm = () => {
   } = currentUser;
 
   const [stateChange, setStateChange] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const debounce = require("lodash.debounce");
 
@@ -60,13 +63,15 @@ const ProfileForm = () => {
     name: Yup.string()
       .required("Please enter the required field!")
       .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field!"),
-    contact_no: Yup.number()
-      .required("Input a valid phone number!")
+    contact_no: Yup.string()
+      .required("Input a valid phone no.!")
+      .matches(/^[0-9]+$/, "Must be only digits")
       .min(8, "Must be exactly 8 digits")
       .max(8, "Must be exactly 8 digits"),
     email: Yup.string().email().required("Please enter the required field!"),
-    professional_no: Yup.number()
-      .required("Input a valid professional number!")
+    professional_no: Yup.string()
+      .required("Input a valid professional no.!")
+      .matches(/^[0-9]+$/, "Must be only digits")
       .min(4, "Must be exactly 4 digits")
       .max(4, "Must be exactly 4 digits"),
     firm: Yup.string().required("Please enter the required field!"),
@@ -85,15 +90,15 @@ const ProfileForm = () => {
   });
 
   //Date of Birth Field
-  const DatePickerField = ({ name, value, onChange, props }) => {
+  const DatePickerField = ({ name, value, onChange }) => {
     return (
       <DatePicker
-        {...props}
         className="border-lightgreen border-1 rounded-xl text-sm font-normal p-2 bg-white w-full"
         selected={(value && new Date(value)) || null}
         onChange={(val) => {
           onChange(name, val);
         }}
+        dateFormat="dd/MM/yyyy"
       />
     );
   };
@@ -159,9 +164,8 @@ const ProfileForm = () => {
       unit_no: unit_no,
       postal_code: postal_code,
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       handleSubmit(values);
-      resetForm();
     },
     validationSchema: profileValidation,
   });
@@ -194,12 +198,43 @@ const ProfileForm = () => {
   const handleSubmit = async (values) => {
     await axios
       .put(`${BACKEND_URL}/users/update/${userData.id}`, {
-        name: `${values.name}`,
+        name: values.name,
+        dob: values.dob,
+        gender: values.gender,
+        citizenship: values.citizenship,
+        residential_status: values.residential_status,
+        contact_no: values.contact_no,
+        email: values.email,
+        professional_no: values.professional_no,
+        firm: values.firm,
+        designation: values.designation,
+        block_no: values.block_no,
+        street_name: values.street_name,
+        building_name: values.building_name,
+        unit_no: values.unit_no,
+        postal_code: values.postal_code,
       })
       .then((res) => {
-        console.log(res.data);
-        setUserData({ ...userData, name: res.data.userData });
-        setCurrentUser({ ...currentUser, name: res.data.userData });
+        setUserData({
+          ...userData,
+          name: res.data.name,
+          dob: res.data.dob,
+          gender: res.data.gender,
+          citizenship: res.data.citizenship,
+          residential_status: res.data.residential_status,
+          contact_no: res.data.contact_no,
+          email: res.data.email,
+          professional_no: res.data.professional_no,
+          firm: res.data.firm,
+          designation: res.data.designation,
+          block_no: res.data.block_no,
+          street_name: res.data.street_name,
+          building_name: res.data.building_name,
+          unit_no: res.data.unit_no,
+          postal_code: res.data.postal_code,
+        });
+        setCurrentUser(userData);
+        setOpenModal(true);
       })
       .catch((err) => {
         console.log(err);
@@ -208,6 +243,18 @@ const ProfileForm = () => {
 
   return (
     <div className="text-darkgreen grid grid-cols-3">
+      <Modal
+        open={openModal}
+        okButtonProps={{ hidden: true }}
+        cancelButtonProps={{ hidden: true }}
+        onOk={() => setOpenModal(false)}
+        onCancel={() => setOpenModal(false)}
+      >
+        <div className="flex flex-row justify-start gap-5">
+          <BsCheckCircle className="text-green-500 text-2xl" /> Profile successfully
+          updated!
+        </div>
+      </Modal>
       <form className="col-span-2 mt-4" onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-3 gap-2">
           <label htmlFor="name" className="font-bold text-left">
