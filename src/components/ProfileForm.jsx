@@ -10,6 +10,9 @@ import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
 import { Modal } from "antd";
 import { BsCheckCircle } from "react-icons/bs";
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Button from "./Button";
 
 import { BACKEND_URL } from "../constants";
 
@@ -56,6 +59,10 @@ const ProfileForm = () => {
 
   const [stateChange, setStateChange] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const [updatedPhotoFile, setUpdatedPhotoFile] = useState("");
+  const [updatedPhotoFileURL, setUpdatedPhotoFileURL] = useState(photo_url);
+  const [changedPhoto, setChangedPhoto] = useState(false);
+  const [openUploadPicModal, setOpenUploadPicModal] = useState(false);
 
   const debounce = require("lodash.debounce");
 
@@ -106,9 +113,6 @@ const ProfileForm = () => {
   // Gender Options
   const genderOptions = [
     {
-      // selected: "selected",
-      // disabled: "disabled",
-      // hidden: "hidden",
       value: "",
       label: "Choose your gender",
     },
@@ -123,9 +127,6 @@ const ProfileForm = () => {
   // Gender Options
   const residentOptions = [
     {
-      // selected: "selected",
-      // disabled: "disabled",
-      // hidden: "hidden",
       value: "",
       label: "Choose your residential status",
     },
@@ -241,6 +242,39 @@ const ProfileForm = () => {
       });
   };
 
+  // Handle user profile pic upload
+  const handleUpdatedPhoto = (e) => {
+    setUpdatedPhotoFile(e.target.files[0]);
+    const urlDisplay = URL.createObjectURL(e.target.files[0]);
+    setUpdatedPhotoFileURL(urlDisplay);
+    setChangedPhoto(true);
+  };
+
+  // Confirm user profile pic upload
+  const handlePhotoSubmit = async (e) => {
+    e.preventDefault();
+    const profilePhotoRef = ref(storage, `${name}`);
+    const photoURL = await uploadBytes(profilePhotoRef, updatedPhotoFile).then(
+      () =>
+        getDownloadURL(profilePhotoRef).then((downloadURL) => {
+          return downloadURL;
+        }),
+    );
+    await axios
+      .put(`${BACKEND_URL}/users/update/${userData.id}`, {
+        photo_url: photoURL,
+      })
+      .then((res) => {
+        setUserData({ ...userData, photo_url: res.data.photo_url });
+        setCurrentUser(userData);
+        setOpenUploadPicModal(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setChangedPhoto(false);
+  };
+
   return (
     <div className="text-darkgreen grid grid-cols-3">
       <Modal
@@ -251,8 +285,20 @@ const ProfileForm = () => {
         onCancel={() => setOpenModal(false)}
       >
         <div className="flex flex-row justify-start gap-5">
-          <BsCheckCircle className="text-green-500 text-2xl" /> Profile successfully
-          updated!
+          <BsCheckCircle className="text-green-500 text-2xl" /> Profile
+          successfully updated!
+        </div>
+      </Modal>
+      <Modal
+        open={openUploadPicModal}
+        okButtonProps={{ hidden: true }}
+        cancelButtonProps={{ hidden: true }}
+        onOk={() => setOpenUploadPicModal(false)}
+        onCancel={() => setOpenUploadPicModal(false)}
+      >
+        <div className="flex flex-row justify-start gap-5">
+          <BsCheckCircle className="text-green-500 text-2xl" /> Profile photo
+          successfully uploaded and updated!
         </div>
       </Modal>
       <form className="col-span-2 mt-4" onSubmit={formik.handleSubmit}>
@@ -286,6 +332,7 @@ const ProfileForm = () => {
               value={formik.values.dob}
               onChange={formik.setFieldValue}
               onBlur={formik.handleBlur}
+              placeholder="dd/mm/yyyy"
             />
           </div>
           <label htmlFor="gender" className="font-bold text-left col-start-1">
@@ -460,11 +507,6 @@ const ProfileForm = () => {
             onBlur={formik.handleBlur}
             placeholder="Block No."
           />
-          {/* {props.errors.block_no && props.touched.block_no ? (
-                  <div className="text-xxs text-red-600 text-left col-end-3">
-                    {props.errors.block_no}
-                  </div>
-                ) : null} */}
           <label
             htmlFor="street_name"
             className="font-bold text-left col-span-1"
@@ -481,11 +523,6 @@ const ProfileForm = () => {
             onBlur={formik.handleBlur}
             placeholder="Street Name"
           />
-          {/* {props.errors.street_name && props.touched.street_name ? (
-                  <div className="text-xxs text-red-600 text-left col-end-3">
-                    {props.errors.street_name}
-                  </div>
-                ) : null} */}
           <label
             htmlFor="building_name"
             className="font-bold text-left col-span-1"
@@ -502,11 +539,6 @@ const ProfileForm = () => {
             onBlur={formik.handleBlur}
             placeholder="Building Name"
           />
-          {/* {props.errors.building_name && props.touched.building_name ? (
-                  <div className="text-xxs text-red-600 text-left col-end-3">
-                    {props.errors.building_name}
-                  </div>
-                ) : null} */}
           <label htmlFor="unit_no" className="font-bold text-left col-span-1">
             Unit No.:
           </label>
@@ -520,11 +552,6 @@ const ProfileForm = () => {
             onBlur={formik.handleBlur}
             placeholder="Unit No."
           />
-          {/* {props.errors.unit_no && props.touched.unit_no ? (
-                  <div className="text-xxs text-red-600 text-left col-end-3">
-                    {props.errors.unit_no}
-                  </div>
-                ) : null} */}
           <label
             htmlFor="postal_code"
             className="font-bold text-left col-span-1"
@@ -555,6 +582,36 @@ const ProfileForm = () => {
           Update
         </button>
       </form>
+      <div>
+        {updatedPhotoFileURL ? (
+          <img
+            src={updatedPhotoFileURL}
+            alt="profile pic"
+            className="w-72 h-72 mx-auto rounded-full object-cover"
+          />
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            className="w-72 h-auto mx-auto opacity-60"
+            viewBox="0 0 25 25"
+          >
+            <path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12-12-5.377-12-12 5.377-12 12-12zm8.127 19.41c-.282-.401-.772-.654-1.624-.85-3.848-.906-4.097-1.501-4.352-2.059-.259-.565-.19-1.23.205-1.977 1.726-3.257 2.09-6.024 1.027-7.79-.674-1.119-1.875-1.734-3.383-1.734-1.521 0-2.732.626-3.409 1.763-1.066 1.789-.693 4.544 1.049 7.757.402.742.476 1.406.22 1.974-.265.586-.611 1.19-4.365 2.066-.852.196-1.342.449-1.623.848 2.012 2.207 4.91 3.592 8.128 3.592s6.115-1.385 8.127-3.59zm.65-.782c1.395-1.844 2.223-4.14 2.223-6.628 0-6.071-4.929-11-11-11s-11 4.929-11 11c0 2.487.827 4.783 2.222 6.626.409-.452 1.049-.81 2.049-1.041 2.025-.462 3.376-.836 3.678-1.502.122-.272.061-.628-.188-1.087-1.917-3.535-2.282-6.641-1.03-8.745.853-1.431 2.408-2.251 4.269-2.251 1.845 0 3.391.808 4.24 2.218 1.251 2.079.896 5.195-1 8.774-.245.463-.304.821-.179 1.094.305.668 1.644 1.038 3.667 1.499 1 .23 1.64.59 2.049 1.043z" />
+          </svg>
+        )}
+        <label className="flex justify-center mt-5">
+          <p className="rounded-full border-2 border-darkgreen p-1 font-bold mt-4 hover:bg-lightgreen w-1/5 text-sm">
+            Upload Photo
+          </p>
+          <input type="file" className="hidden" onChange={handleUpdatedPhoto} />
+        </label>
+        <div className="flex justify-center p-4">
+          {changedPhoto && (
+            <Button onClick={handlePhotoSubmit}>Confirm Photo</Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
