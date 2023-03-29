@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Option = () => {
-  return (
-    <div>Option</div>
-  )
-}
-
-export default Option
+export const makeOption = (options) => {
+  return options.map((option) => (
+    <option>{option.label}</option>
+  ));
+};
