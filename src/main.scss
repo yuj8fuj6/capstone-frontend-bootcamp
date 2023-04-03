@@ -1,0 +1,17 @@
+@import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+
+.cs-message__content {
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #d2dcda;
+  margin-top: 0;
+  padding: 0.6em 0.9em;
+  border-radius: 0.7em 0.7em 0.7em 0.7em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-family: Rubik;
+  font-weight: normal;
+  font-size: 0.8em;
+  font-variant: normal;
+}
