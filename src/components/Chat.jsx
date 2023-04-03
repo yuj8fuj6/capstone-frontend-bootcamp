@@ -21,6 +21,36 @@ const Chat = () => {
       sentTime: `${new Date()}`,
       sender: "chatGPT",
     },
+    // {
+    //   message:
+    //     "Hello! Kaibo AI Assistant here! Ask me any question about regulations!",
+    //   sentTime: `${new Date()}`,
+    //   sender: "chatGPT",
+    // },
+    // {
+    //   message:
+    //     "Hello! Kaibo AI Assistant here! Ask me any question about regulations!",
+    //   sentTime: `${new Date()}`,
+    //   sender: "chatGPT",
+    // },
+    // {
+    //   message:
+    //     "Hello! Kaibo AI Assistant here! Ask me any question about regulations!",
+    //   sentTime: `${new Date()}`,
+    //   sender: "chatGPT",
+    // },
+    // {
+    //   message:
+    //     "Hello! Kaibo AI Assistant here! Ask me any question about regulations!",
+    //   sentTime: `${new Date()}`,
+    //   sender: "chatGPT",
+    // },
+    // {
+    //   message:
+    //     "Hello! Kaibo AI Assistant here! Ask me any question about regulations!",
+    //   sentTime: `${new Date()}`,
+    //   sender: "chatGPT",
+    // },
   ]);
 
   const handleSend = async (message) => {
@@ -83,14 +113,22 @@ const Chat = () => {
       </div>
       <div className="relative h-[250px] w-[full] rounded-full mx-4 mb-4 drop-shadow-lg">
         <MainContainer className="main">
+          <div
+           className="w-full h-[1000px]"
+          >
           <ChatContainer>
             <MessageList
-              className="overflow-auto"
               typingIndicator={
                 typing ? (
                   <TypingIndicator content="Kaibo AI is typing ..." />
                 ) : null
               }
+              disableOnYReachWhenNoScroll={true}
+              autoScrollToBottomOnMount={true}
+              autoScrollToBottom={true}
+              onYReachEnd={() => console.log("onYReachEnd")}
+              onYReachStart={() => console.log("onYReachStart")}
+              // className="w-full h-[1000px] overscroll-auto"
             >
               {messages.map((message, index) => (
                 <Message
@@ -106,6 +144,7 @@ const Chat = () => {
               className="text-left text-xs"
             />
           </ChatContainer>
+          </div>
         </MainContainer>
       </div>
     </>
