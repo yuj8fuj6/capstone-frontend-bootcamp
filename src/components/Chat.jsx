@@ -12,6 +12,7 @@ import {
 import "./Chat.css";
 
 const Chat = () => {
+  const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
       message: "Hello! Kaibo AI Assistant here! Ask me any question!",
@@ -28,6 +29,7 @@ const Chat = () => {
     };
     const newMessages = [...messages, newMessage];
     setMessages(newMessages);
+    setTyping(true);
   };
 
   return (
@@ -38,7 +40,13 @@ const Chat = () => {
       <div className="relative h-[250px] w-[full] rounded-full mx-4 mb-4 drop-shadow-lg">
         <MainContainer className="main">
           <ChatContainer>
-            <MessageList>
+            <MessageList
+              typingIndicator={
+                typing ? (
+                  <TypingIndicator content="Kaibo AI is typing ..." />
+                ) : null
+              }
+            >
               {messages.map((message) => (
                 <Message model={message} className="text-left text-xs" />
               ))}
