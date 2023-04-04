@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "../contexts/UserContext";
@@ -186,7 +186,7 @@ const ProfileForm = () => {
 
   useEffect(() => {
     uraApiCall();
-  }, [formik.values.postal_code, uraApiCall]);
+  }, [formik.values.postal_code]);
 
   useEffect(() => {
     if (

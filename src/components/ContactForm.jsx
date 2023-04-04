@@ -210,8 +210,6 @@ const ContactForm = () => {
     validationSchema: contentValidation,
   });
 
-  console.log(formik.values);
-
   const handleSubmit = (values, actions) => {
     axios({
       method: "POST",
@@ -222,7 +220,7 @@ const ContactForm = () => {
         actions.setSubmitting(false);
         actions.resetForm();
         handleServerResponse(true, "Email successfully sent");
-        setOpenModal(true)
+        setOpenModal(true);
       })
       .catch((err) => {
         actions.setSubmitting(false);

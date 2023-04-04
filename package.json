@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@fontsource/rubik": "^4.5.14",
     "@react-three/drei": "^9.57.1",
     "@react-three/fiber": "^8.12.0",
@@ -19,6 +21,7 @@
     "i18n-iso-countries": "^7.5.0",
     "leaflet": "^1.9.3",
     "lodash.debounce": "^4.0.8",
+    "openai": "^3.2.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
@@ -27,6 +30,7 @@
     "react-router": "^6.9.0",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
+    "sass": "^1.60.0",
     "three": "^0.150.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.0.2"

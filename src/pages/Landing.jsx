@@ -3,6 +3,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NavBar from "../components/NavBar";
 import ModelCanvas from "../components/Model";
 import { BsMouse } from "react-icons/bs";
+import Chat from "../components/Chat";
+import Comment from "../components/Comment";
+import BuildingForm from "../components/BuildingForm";
+import Checklist from "../components/Checklist";
 
 const Landing = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -37,10 +41,10 @@ const Landing = () => {
       <div className="h-full flex flex-row justify-evenly">
         <div className="text-darkgreen text-lg font-bold grid grid-cols-1 mt-2 gap-5 mb-5">
           <div className="bg-white h-[300px] w-[400px] rounded-xl overscroll-none">
-            Hello World!
+            <BuildingForm />
           </div>
           <div className="bg-white h-[450px] w-[400px] rounded-xl overscroll-none">
-            Hello World!
+            <Checklist />
           </div>
         </div>
         <div className="rounded-lg border-slate-300 border-1 w-1/2 h-[770px] mt-2">
@@ -48,10 +52,10 @@ const Landing = () => {
         </div>
         <div className="text-darkgreen text-lg font-bold grid grid-cols-1 mt-2">
           <div className="bg-white h-[300px] w-[400px] rounded-xl overscroll-none">
-            Hello World!
+            <Chat />
           </div>
           <div className="bg-white h-[450px] w-[400px] rounded-xl overscroll-none">
-            Hello World!
+            <Comment />
           </div>
         </div>
       </div>
