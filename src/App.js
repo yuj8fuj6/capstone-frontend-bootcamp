@@ -9,6 +9,7 @@ import Circular from "./pages/Circular";
 import { MapContextProvider } from "./contexts/MapContext";
 import { UserContextProvider } from "./contexts/UserContext";
 import { CircularContextProvider } from "./contexts/CircularContext";
+import { CommentContextProvider } from "./contexts/CommentContext";
 
 const App = () => {
   return (
@@ -16,14 +17,16 @@ const App = () => {
       <UserContextProvider>
         <MapContextProvider>
           <CircularContextProvider>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="main" element={<Landing />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="support" element={<Contact />} />
-              <Route path="map" element={<Map />} />
-              <Route path="circular" element={<Circular />} />
-            </Routes>
+            <CommentContextProvider>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="main" element={<Landing />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="support" element={<Contact />} />
+                <Route path="map" element={<Map />} />
+                <Route path="circular" element={<Circular />} />
+              </Routes>
+            </CommentContextProvider>
           </CircularContextProvider>
         </MapContextProvider>
       </UserContextProvider>
