@@ -10,8 +10,12 @@ import { MapContextProvider } from "./contexts/MapContext";
 import { UserContextProvider } from "./contexts/UserContext";
 import { CircularContextProvider } from "./contexts/CircularContext";
 import { CommentContextProvider } from "./contexts/CommentContext";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
 
 const App = () => {
+  TimeAgo.addDefaultLocale(en);
+
   return (
     <div className="App">
       <UserContextProvider>

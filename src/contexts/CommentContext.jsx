@@ -8,6 +8,7 @@ export const CommentContext = createContext();
 
 export const CommentContextProvider = (props) => {
   const [allPostData, setAllPostData] = useState([]);
+  const [threadCount, setThreadCount] = useState(0);
 
   const { isLoading, isAuthenticated } = useAuth0();
 
@@ -20,7 +21,9 @@ export const CommentContextProvider = (props) => {
   }, [isAuthenticated]);
 
   return (
-    <CommentContext.Provider value={{ allPostData, setAllPostData }}>
+    <CommentContext.Provider
+      value={{ allPostData, setAllPostData, threadCount, setThreadCount }}
+    >
       {props.children}
     </CommentContext.Provider>
   );
