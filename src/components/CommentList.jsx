@@ -42,7 +42,10 @@ const CommentList = (props) => {
               <div className="text-left text-xxs font-base grid grid-cols-8">
                 <div className="col-span-6 grid grid-cols-1 gap-2">
                   <div className="text-xs">
-                    {post.user.name} - <span className="text-xxs font-light">posted <ReactTimeAgo date={post.updatedAt} /></span>
+                    {post.user.name} -{" "}
+                    <span className="text-xxs font-light">
+                      posted <ReactTimeAgo date={post.updatedAt} />
+                    </span>
                   </div>
                   <div className="text-left text-xxs font-bold leading-tight">
                     Issue: {post.authority.acronym} {post.code} - {post.clause}
