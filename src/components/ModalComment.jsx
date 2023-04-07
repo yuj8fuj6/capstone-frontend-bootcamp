@@ -55,7 +55,7 @@ const ModalComment = (props) => {
       })
       .then((res) => {
         setAllThreads([res.data, ...allThreads]);
-        setThreadCount(allThreads.length);
+        setThreadCount([res.data, ...allThreads].length);
         actions.resetForm();
       })
       .catch((err) => {
@@ -76,7 +76,7 @@ const ModalComment = (props) => {
       (thread) => thread.id !== threadId,
     );
     setAllThreads(filteredThreadArray);
-    setThreadCount(allThreads.length);
+    setThreadCount(filteredThreadArray.length);
     await axios
       .delete(`${BACKEND_URL}/comments/deleteThread`, {
         data: { threadID: threadId },
