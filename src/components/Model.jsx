@@ -1,19 +1,45 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { ModelContext } from "../contexts/ModelContext";
 
 import CanvasLoader from "./CanvasLoader";
 
 const Model = () => {
-  const model = useGLTF("./models/Industrial.glb");
+  const { modelType, setModelType } = useContext(ModelContext);
+
+  const industrialModel = useGLTF("./models/Industrial.glb");
+  const houseModel = useGLTF("./models/House.glb");
+  const communityModel = useGLTF("./models/Community.glb");
 
   return (
-    <mesh>
-      <hemisphereLight intensity={0.15} groundColor="black" />
-      <pointLight intensity={1} />
-      <primitive object={model.scene} position={[0, -3.25, -1.5]} />
-    </mesh>
+    <>
+      {modelType === "Industrial" && (
+        <mesh>
+          <hemisphereLight intensity={0.15} groundColor="black" />
+          <pointLight intensity={1} />
+          <primitive
+            object={industrialModel.scene}
+            position={[0, -3.25, -1.5]}
+          />
+        </mesh>
+      )}
+      {modelType === "Residential" && (
+        <mesh>
+          <hemisphereLight intensity={0.15} groundColor="black" />
+          <pointLight intensity={1} />
+          <primitive object={houseModel.scene} position={[0, -3.25, -1.5]} />
+        </mesh>
+      )}
+      {modelType === "Community" && (
+        <mesh>
+          <hemisphereLight intensity={0.15} groundColor="black" />
+          <pointLight intensity={1} />
+          <primitive object={communityModel.scene} position={[0, -3.25, -1.5]} />
+        </mesh>
+      )}
+    </>
   );
 };
 

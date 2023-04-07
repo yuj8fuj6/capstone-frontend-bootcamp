@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "../contexts/UserContext";
@@ -15,6 +15,34 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from "./Button";
 
 import { BACKEND_URL } from "../constants";
+
+// Gender Options
+const genderOptions = [
+  {
+    value: "",
+    label: "Choose your gender",
+  },
+  {
+    value: "Male",
+    label: "Male",
+  },
+  { value: "Female", label: "Female" },
+  { value: "Others", label: "Others" },
+];
+
+// Resident Options
+const residentOptions = [
+  {
+    value: "",
+    label: "Choose your residential status",
+  },
+  {
+    value: "Citizen",
+    label: "Citizen",
+  },
+  { value: "PR", label: "PR" },
+  { value: "Foreigner", label: "Foreigner" },
+];
 
 const ProfileForm = () => {
   const { userData, setUserData } = useContext(UserContext);
@@ -109,34 +137,6 @@ const ProfileForm = () => {
       />
     );
   };
-
-  // Gender Options
-  const genderOptions = [
-    {
-      value: "",
-      label: "Choose your gender",
-    },
-    {
-      value: "Male",
-      label: "Male",
-    },
-    { value: "Female", label: "Female" },
-    { value: "Others", label: "Others" },
-  ];
-
-  // Gender Options
-  const residentOptions = [
-    {
-      value: "",
-      label: "Choose your residential status",
-    },
-    {
-      value: "Citizen",
-      label: "Citizen",
-    },
-    { value: "PR", label: "PR" },
-    { value: "Foreigner", label: "Foreigner" },
-  ];
 
   // Nationality Options
   countries.registerLocale(enLocale);
