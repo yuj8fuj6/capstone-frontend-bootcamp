@@ -71,11 +71,19 @@ const ModalComment = (props) => {
     }
   }, [formik.values]);
 
-  const filteredThreadArray = (threadID) =>
-    allThreads.filter((thread) => thread.id !== threadID);
-
-  const handleDelete = async (threadID) => {
-    
+  const handleDelete = async (threadId) => {
+    const filteredThreadArray = allThreads.filter(
+      (thread) => thread.id !== threadId,
+    );
+    setAllThreads(filteredThreadArray);
+    setThreadCount(allThreads.length);
+    await axios
+      .delete(`${BACKEND_URL}/comments/deleteThread`, {
+        data: { threadID: threadId },
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -208,10 +216,15 @@ const ModalComment = (props) => {
                       Report
                     </Link>
                     {thread.user_id == userID && (
-                      <div className="ml-20 flex flex-row hover:text-red-200">
+                      <button
+                        className="ml-20 flex flex-row hover:text-red-200"
+                        onClick={() => {
+                          handleDelete(thread.id);
+                        }}
+                      >
                         <BsTrashFill className="mr-3" />
                         Delete
-                      </div>
+                      </button>
                     )}
                   </div>
                 </div>
