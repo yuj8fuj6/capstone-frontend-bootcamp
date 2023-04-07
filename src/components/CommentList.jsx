@@ -13,7 +13,7 @@ import { Modal } from "antd";
 import { BACKEND_URL } from "../constants";
 
 const authorityOptions = [
-  { value: null, label: "Agency" },
+  { value: "", label: "Agency" },
   { value: 1, label: 1 },
   { value: 2, label: 2 },
   { value: 3, label: 3 },

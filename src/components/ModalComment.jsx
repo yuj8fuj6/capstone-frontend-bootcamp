@@ -66,6 +66,40 @@ const ModalComment = (props) => {
       });
   };
 
+  const handlePostUpvote = async () => {
+    const filteredPostArray = allPostData.filter((post) => post.id !== postID);
+    await axios
+      .post(`${BACKEND_URL}/comments/addPostVote`, {
+        upvote: true,
+        post_id: postID,
+        user_id: userID,
+      })
+      .then((res) => {
+        setAllPostData([res.data, ...filteredPostArray]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleThreadUpvote = async (threadID) => {
+    const filteredThreadArray = allThreads.filter(
+      (thread) => thread.id !== threadID,
+    );
+    await axios
+      .post(`${BACKEND_URL}/comments/addThreadVote`, {
+        upvote: true,
+        thread_id: threadID,
+        user_id: userID,
+      })
+      .then((res) => {
+        setAllThreads([res.data, ...filteredThreadArray]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     if (
       !(JSON.stringify(formik.values) === JSON.stringify(formik.initialValues))
@@ -116,9 +150,15 @@ const ModalComment = (props) => {
           {currentPost && (
             <div className="grid grid-cols-12 border-1 border-slate-300 rounded-xl p-3">
               <div className="col-span-1 grid grid-cols-1">
-                <BsArrowUpCircle className="text-base hover:text-red-200 mx-auto" />
+                <BsArrowUpCircle
+                  className="text-base hover:text-red-200 mx-auto"
+                  onClick={() => handlePostUpvote()}
+                />
                 <span className="font-bold mx-auto">{currentPost.upvote}</span>
-                <BsArrowDownCircle className="text-base hover:text-red-200 mx-auto" />
+                <BsArrowDownCircle
+                  className="text-base hover:text-red-200 mx-auto"
+                  onClick={() => handlePostUpvote()}
+                />
               </div>
               {currentPost.user.photo_url ? (
                 <img
@@ -191,7 +231,7 @@ const ModalComment = (props) => {
             >
               <div className="flex flex-row justify-start gap-5">
                 <BsCheckCircle className="text-green-500 text-2xl" /> Commented
-                successfully successfully!
+                successfully!
               </div>
             </Modal>
 
@@ -250,9 +290,15 @@ const ModalComment = (props) => {
                   </div>
                   <div className="flex flex-row font-bold">
                     <div className="flex flex-row">
-                      <BsArrowUpCircle className="text-base hover:text-red-200" />
+                      <BsArrowUpCircle
+                        className="text-base hover:text-red-200"
+                        onClick={() => handleThreadUpvote(thread.id)}
+                      />
                       <span className="font-bold mx-3">{thread.upvote}</span>
-                      <BsArrowDownCircle className="text-base hover:text-red-200" />
+                      <BsArrowDownCircle
+                        className="text-base hover:text-red-200"
+                        onClick={() => handleThreadUpvote(thread.id)}
+                      />
                     </div>
                     <Link
                       to={"/support"}
