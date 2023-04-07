@@ -9,21 +9,28 @@ import Circular from "./pages/Circular";
 import { MapContextProvider } from "./contexts/MapContext";
 import { UserContextProvider } from "./contexts/UserContext";
 import { CircularContextProvider } from "./contexts/CircularContext";
+import { CommentContextProvider } from "./contexts/CommentContext";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
 
 const App = () => {
+  TimeAgo.addDefaultLocale(en);
+
   return (
     <div className="App">
       <UserContextProvider>
         <MapContextProvider>
           <CircularContextProvider>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="main" element={<Landing />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="support" element={<Contact />} />
-              <Route path="map" element={<Map />} />
-              <Route path="circular" element={<Circular />} />
-            </Routes>
+            <CommentContextProvider>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="main" element={<Landing />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="support" element={<Contact />} />
+                <Route path="map" element={<Map />} />
+                <Route path="circular" element={<Circular />} />
+              </Routes>
+            </CommentContextProvider>
           </CircularContextProvider>
         </MapContextProvider>
       </UserContextProvider>
