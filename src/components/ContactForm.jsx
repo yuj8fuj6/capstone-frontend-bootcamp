@@ -189,7 +189,23 @@ const ContactForm = () => {
     photo_url,
   } = userData;
 
-  const personalDetails = `Name: ${name}\n Firm: ${firm}\n Designation: ${designation}\n Professional Reg. No.: ${professional_no}\n Contact No.: ${contact_no}\n Contact Email: ${email} `;
+  const personalDetails = `Name: ${name}\nFirm: ${firm}\nDesignation: ${designation}\nProfessional Reg. No.: ${professional_no}\nContact No.: ${contact_no}\nContact Email: ${email} `;
+  const abbreviatedPersonalDetails = `Contact Email: ${email}`;
+
+  useEffect(() => {
+    if (
+      userData &&
+      !name &&
+      !firm &&
+      !designation &&
+      !professional_no &&
+      !contact_no
+    ) {
+      formik.setFieldValue("personal_details",abbreviatedPersonalDetails);
+    } else {
+      formik.setFieldValue("personal_details",personalDetails);
+    }
+  }, [userData]);
 
   const contentValidation = Yup.object().shape({
     description: Yup.string().required("Please enter the required field!"),

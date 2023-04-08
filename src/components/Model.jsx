@@ -19,9 +19,18 @@ const Model = () => {
         <mesh>
           <hemisphereLight intensity={0.15} groundColor="black" />
           <pointLight intensity={1} />
+          <spotLight
+            position={[-20, 50, 10]}
+            angle={0.12}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
           <primitive
             object={industrialModel.scene}
             position={[0, -3.25, -1.5]}
+            scale={0.75}
           />
         </mesh>
       )}
@@ -29,14 +38,38 @@ const Model = () => {
         <mesh>
           <hemisphereLight intensity={0.15} groundColor="black" />
           <pointLight intensity={1} />
-          <primitive object={houseModel.scene} position={[0, -3.25, -1.5]} />
+          <spotLight
+            position={[-20, 50, 10]}
+            angle={0.12}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
+          <primitive
+            object={houseModel.scene}
+            position={[0, -3.25, -1.5]}
+            scale={0.75}
+          />
         </mesh>
       )}
-      {modelType === "Community" && (
+      {modelType === "Recreation" && (
         <mesh>
           <hemisphereLight intensity={0.15} groundColor="black" />
           <pointLight intensity={1} />
-          <primitive object={communityModel.scene} position={[0, -3.25, -1.5]} />
+          <spotLight
+            position={[-20, 50, 10]}
+            angle={0.12}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
+          <primitive
+            object={communityModel.scene}
+            position={[0, -3.25, -1.5]}
+            scale={0.75}
+          />
         </mesh>
       )}
     </>

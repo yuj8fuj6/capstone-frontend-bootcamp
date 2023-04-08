@@ -15,7 +15,7 @@ const modelOptions = [
   { value: "", label: "Choose building type" },
   { value: "Industrial", label: "Industrial" },
   { value: "Residential", label: "Residential" },
-  { value: "Community", label: "Community" },
+  { value: "Recreation", label: "Recreation" },
 ];
 
 const Landing = () => {
