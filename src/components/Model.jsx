@@ -9,7 +9,7 @@ import CanvasLoader from "./CanvasLoader";
 const Model = () => {
   const { modelType, setModelType } = useContext(ModelContext);
 
-  const industrialModel = useGLTF("./models/Industrial.glb");
+  const industrialModel = useGLTF("./models/Industrial(Trial).glb");
   const houseModel = useGLTF("./models/House.glb");
   const communityModel = useGLTF("./models/Community.glb");
 
