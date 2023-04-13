@@ -11,6 +11,7 @@ import { UserContextProvider } from "./contexts/UserContext";
 import { CircularContextProvider } from "./contexts/CircularContext";
 import { CommentContextProvider } from "./contexts/CommentContext";
 import { ModelContextProvider } from "./contexts/ModelContext";
+import { ChecklistContextProvider } from "./contexts/ChecklistContext";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 
@@ -24,14 +25,16 @@ const App = () => {
           <CircularContextProvider>
             <CommentContextProvider>
               <ModelContextProvider>
-                <Routes>
-                  <Route path="/" element={<Login />} />
-                  <Route path="main" element={<Landing />} />
-                  <Route path="profile" element={<Profile />} />
-                  <Route path="support" element={<Contact />} />
-                  <Route path="map" element={<Map />} />
-                  <Route path="circular" element={<Circular />} />
-                </Routes>
+                <ChecklistContextProvider>
+                  <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="main" element={<Landing />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="support" element={<Contact />} />
+                    <Route path="map" element={<Map />} />
+                    <Route path="circular" element={<Circular />} />
+                  </Routes>
+                </ChecklistContextProvider>
               </ModelContextProvider>
             </CommentContextProvider>
           </CircularContextProvider>
