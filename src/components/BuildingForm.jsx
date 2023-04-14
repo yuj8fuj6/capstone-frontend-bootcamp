@@ -86,8 +86,7 @@ const BuildingForm = () => {
     floor_no: Yup.number()
       .required("Please enter the required field!")
       .integer("Invalid decimal! Input a whole no.!")
-      .positive("Input to be a positive no.!")
-      .min(1),
+      .positive("Input to be a positive no.!"),
     basement_floor_no: Yup.number()
       .required("Please enter the required field!")
       .integer("Invalid decimal! Input a whole no.!")
@@ -202,6 +201,14 @@ const BuildingForm = () => {
     validationSchema: formValidation,
   });
 
+  useEffect(() => {
+    if (
+      !(JSON.stringify(formik.values) === JSON.stringify(formik.initialValues))
+    ) {
+      setStateChange(false);
+    }
+  }, [formik.values]);
+
   const handleSubmit = async (values) => {};
 
   return (
@@ -209,7 +216,354 @@ const BuildingForm = () => {
       <div className="text-base m-2 border-1 rounded-full border-lightgreen">
         Form
       </div>
-      <form></form>
+      <div className="overflow-auto h-[250px]">
+        <form
+          className="grid grid-cols-4 text-xs m-3 gap-3"
+          onSubmit={formik.handleSubmit}
+        >
+          <div className="col-span-4 grid grid-cols-4">
+            <label htmlFor="building_type" className="text-left col-span-1">
+              Building Type:
+            </label>
+            <select
+              tabIndex={0}
+              id="building_type"
+              name="building_type"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-3"
+              value={formik.values.building_type}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              {makeOption(buildingTypeOptions)}
+            </select>
+            {formik.errors.building_type && formik.touched.building_type ? (
+              <div className="text-xxs text-red-600 text-left col-start-1">
+                {formik.errors.building_type}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-4 gap-2 items-center">
+            <label htmlFor="ura_category" className="text-left col-span-1">
+              URA Category:
+            </label>
+            <select
+              tabIndex={0}
+              id="ura_category"
+              name="ura_category"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-1"
+              value={formik.values.ura_category}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              {makeOption(uraCategoryOptions)}
+            </select>
+            <label htmlFor="scdf_category" className="text-left col-span-1">
+              SCDF Category:
+            </label>
+            <select
+              tabIndex={0}
+              id="scdf_category"
+              name="scdf_category"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-1"
+              value={formik.values.scdf_category}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              {makeOption(scdfCategoryOptions)}
+            </select>
+            {formik.errors.ura_category && formik.touched.ura_category ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-2">
+                {formik.errors.building_height}
+              </div>
+            ) : (
+              <div className="col-span-4"></div>
+            )}
+            {formik.errors.scdf_category && formik.touched.scdf_category ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-5 col-span-2">
+                {formik.errors.scdf_category}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-4 items-center">
+            <label htmlFor="usage" className="text-left col-span-1">
+              Usage:
+            </label>
+            <select
+              tabIndex={0}
+              id="usage"
+              name="usage"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-3"
+              value={formik.values.usage}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            >
+              {makeOption(usageOptions)}
+            </select>
+            {formik.errors.usage && formik.touched.usage ? (
+              <div className="text-xxs text-red-600 text-left col-start-1">
+                {formik.errors.usage}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-12 gap-2 items-center">
+            <label htmlFor="floor_no" className="text-left col-span-3">
+              Floor No.:
+            </label>
+            <input
+              type="number"
+              id="floor_no"
+              name="floor_no"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.floor_no}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1"></div>
+            <label htmlFor="basement_floor_no" className="text-left col-span-3">
+              Basement Floor No.:
+            </label>
+            <input
+              type="number"
+              id="basement_floor_no"
+              name="basement_floor_no"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.basement_floor_no}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1"></div>
+            {formik.errors.floor_no && formik.touched.floor_no ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-6">
+                {formik.errors.floor_no}
+              </div>
+            ) : (
+              <div className="col-span-12"></div>
+            )}
+            {formik.errors.basement_floor_no &&
+            formik.touched.basement_floor_no ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-13 col-span-6">
+                {formik.errors.basement_floor_no}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-12 gap-2 items-center">
+            <label htmlFor="building_height" className="text-left col-span-3">
+              Building Height:
+            </label>
+            <input
+              type="number"
+              id="building_height"
+              name="building_height"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.building_height}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1">m</div>
+            <label htmlFor="avg_floor_height" className="text-left col-span-3">
+              Avg. Floor Height:
+            </label>
+            <input
+              type="number"
+              id="avg_floor_height"
+              name="avg_floor_height"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.avg_floor_height}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1">m</div>
+            {formik.errors.building_height && formik.touched.building_height ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-6">
+                {formik.errors.building_height}
+              </div>
+            ) : (
+              <div className="col-span-12"></div>
+            )}
+            {formik.errors.avg_floor_height &&
+            formik.touched.avg_floor_height ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-13 col-span-6">
+                {formik.errors.avg_floor_height}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-12 gap-2 items-center">
+            <label htmlFor="gfa" className="text-left col-span-3">
+              GFA:
+            </label>
+            <input
+              type="number"
+              id="gfa"
+              name="gfa"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.gfa}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1">
+              m<sup>2</sup>
+            </div>
+            <label htmlFor="site_area" className="text-left col-span-3">
+              Site Area:
+            </label>
+            <input
+              type="number"
+              id="site_area"
+              name="site_area"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.site_area}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1">
+              m<sup>2</sup>
+            </div>
+            {formik.errors.gfa && formik.touched.gfa ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-6">
+                {formik.errors.gfa}
+              </div>
+            ) : (
+              <div className="col-span-12"></div>
+            )}
+            {formik.errors.site_area && formik.touched.site_area ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-13 col-span-6">
+                {formik.errors.site_area}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-12 gap-2 items-center">
+            <label htmlFor="plot_ratio" className="text-left col-span-3">
+              Plot Ratio:
+            </label>
+            <input
+              type="number"
+              id="plot_ratio"
+              name="plot_ratio"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.plot_ratio}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1"></div>
+            <label
+              htmlFor="site_coverage"
+              className="text-left col-span-3 items-center"
+            >
+              Site Coverage:
+            </label>
+            <input
+              type="number"
+              id="site_coverage"
+              name="site_coverage"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.site_coverage}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1">%</div>
+            {formik.errors.plot_ratio && formik.touched.plot_ratio ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-6">
+                {formik.errors.plot_ratio}
+              </div>
+            ) : (
+              <div className="col-span-12"></div>
+            )}
+            {formik.errors.site_coverage && formik.touched.site_coverage ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-13 col-span-6">
+                {formik.errors.site_coverage}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-12 gap-2 items-center">
+            <label htmlFor="habitable_height" className="text-left col-span-3">
+              Habitable Height:
+            </label>
+            <input
+              type="number"
+              id="habitable_height"
+              name="habitable_height"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-2 indent-2"
+              value={formik.values.habitable_height}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <div className="col-span-1">m</div>
+            <label htmlFor="postal_code" className="text-left col-span-3">
+              Postal Code:
+            </label>
+            <input
+              type="text"
+              id="postal_code"
+              name="postal_code"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-3 indent-2"
+              value={formik.values.postal_code}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Input 6-digit postal code here!"
+            />
+            {formik.errors.habitable_height &&
+            formik.touched.habitable_height ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-6">
+                {formik.errors.habitable_height}
+              </div>
+            ) : (
+              <div className="col-span-12"></div>
+            )}
+            {formik.errors.postal_code && formik.touched.postal_code ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-13 col-span-6">
+                {formik.errors.postal_code}
+              </div>
+            ) : null}
+          </div>
+          <div className="col-span-4 grid grid-cols-12 gap-2">
+            <label htmlFor="block_no" className="text-left col-span-3">
+              Block No.:
+            </label>
+            <input
+              type="text"
+              id="block_no"
+              name="block_no"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-3 indent-2"
+              value={formik.values.block_no}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Block No."
+            />
+            <label htmlFor="street_name" className="text-left col-span-3">
+              Street Name:
+            </label>
+            <input
+              type="text"
+              id="street_name"
+              name="street_name"
+              className="border-lightgreen border-1 rounded-xl font-normal bg-white col-span-3 indent-2"
+              value={formik.values.street_name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Street Name"
+            />
+            {formik.errors.block_no && formik.touched.block_no ? (
+              <div className="text-xxs text-red-600 font-light text-left col-start-1 col-span-6">
+                {formik.errors.block_no}
+              </div>
+            ) : (
+              <div className="col-span-12"></div>
+            )}
+            {formik.errors.street_name && formik.touched.street_name ? (
+              <div className="text-xxs text-red-600 font-light text-left col-end-13 col-span-6">
+                {formik.errors.street_name}
+              </div>
+            ) : null}
+          </div>
+          <button
+            className="rounded-full border-2 border-darkgreen p-1 font-bold mt-2 hover:bg-lightgreen text-sm disabled:border-slate-300 disabled:text-slate-300 col-end-5"
+            type="submit"
+            disabled={stateChange}
+          >
+            Update
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
