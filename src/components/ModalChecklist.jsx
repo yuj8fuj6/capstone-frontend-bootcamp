@@ -10,7 +10,6 @@ const ModalChecklist = (props) => {
   const { openModal, setOpenModal } = props;
   const { isLoading, isAuthenticated } = useAuth0();
   const { allAuthorities } = useContext(ChecklistContext);
-  console.log(allAuthorities);
 
   return (
     <>

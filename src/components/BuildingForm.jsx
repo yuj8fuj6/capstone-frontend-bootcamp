@@ -80,6 +80,8 @@ const BuildingForm = () => {
   const [stateChange, setStateChange] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
+  const debounce = require("lodash.debounce");
+
   const decimalRegex = /^\d+(\.\d{0,2})?$/;
 
   const formValidation = Yup.object().shape({
@@ -201,6 +203,35 @@ const BuildingForm = () => {
     validationSchema: formValidation,
   });
 
+  const uraApiCall = debounce(async () => {
+    await axios
+      .get(
+        `https://developers.onemap.sg/commonapi/search?searchVal=${formik.values.postal_code}&returnGeom=Y&getAddrDetails=Y&pageNum=1`,
+      )
+      .then((res) => {
+        const { data } = res;
+        const location = data.results[0];
+        formik.setFieldValue("block_no", location.BLK_NO);
+        formik.setFieldValue("street_name", location.ROAD_NAME);
+      });
+  }, 2000);
+
+  useEffect(() => {
+    uraApiCall();
+  }, [formik.values.postal_code]);
+
+  useEffect(() => {
+    const avgFloorHeight = (
+      formik.values.building_height / formik.values.floor_no
+    ).toFixed(2);
+    formik.setFieldValue("avg_floor_height", avgFloorHeight);
+  }, [formik.values.floor_no, formik.values.building_height]);
+
+  useEffect(() => {
+    const plotRatio = (formik.values.gfa / formik.values.site_area).toFixed(2);
+    formik.setFieldValue("plot_ratio", plotRatio);
+  }, [formik.values.gfa, formik.values.site_area]);
+
   useEffect(() => {
     if (
       !(JSON.stringify(formik.values) === JSON.stringify(formik.initialValues))
@@ -209,7 +240,31 @@ const BuildingForm = () => {
     }
   }, [formik.values]);
 
-  const handleSubmit = async (values) => {};
+  const handleSubmit = async (values) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/addBuilding`, {
+        building_type: values.building_type,
+        ura_category: values.ura_category,
+        scdf_category: values.scdf_category,
+        usage: values.usage,
+        floor_no: values.floor_no,
+        basement_floor_no: values.basement_floor_no,
+        building_height: values.building_height,
+        avg_floor_height: values.avg_floor_height,
+        gfa: values.gfa,
+        site_area: values.site_area,
+        plot_ratio: values.plot_ratio,
+        site_coverage: values.site_coverage,
+        habitable_height: values.habitable_height,
+        postal_code: values.postal_code,
+        block_no: values.block_no,
+        street_name: values.street_name,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
 
   return (
     <div>
