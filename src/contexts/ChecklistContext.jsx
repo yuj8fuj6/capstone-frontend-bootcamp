@@ -9,6 +9,14 @@ export const ChecklistContext = createContext();
 export const ChecklistContextProvider = (props) => {
   const [allAuthorities, setAllAuthorities] = useState([]);
 
+  const [gfaCodeChecklist, setGfaCodeChecklist] = useState([]);
+  const [planningCodeChecklist, setPlanningCodeChecklist] = useState([]);
+  const [accessibilityCodeChecklist, setAccessibilityCodeChecklist] = useState(
+    [],
+  );
+  const [buildingCodeChecklist, setBuildingCodeChecklist] = useState([]);
+  const [fireCodeChecklist, setFireCodeChecklist] = useState([]);
+
   const { isLoading, isAuthenticated } = useAuth0();
 
   useEffect(() => {
@@ -22,7 +30,21 @@ export const ChecklistContextProvider = (props) => {
   }, [isAuthenticated]);
 
   return (
-    <ChecklistContext.Provider value={{ allAuthorities }}>
+    <ChecklistContext.Provider
+      value={{
+        allAuthorities,
+        gfaCodeChecklist,
+        setGfaCodeChecklist,
+        planningCodeChecklist,
+        setPlanningCodeChecklist,
+        accessibilityCodeChecklist,
+        setAccessibilityCodeChecklist,
+        buildingCodeChecklist,
+        setBuildingCodeChecklist,
+        fireCodeChecklist,
+        setFireCodeChecklist,
+      }}
+    >
       {props.children}
     </ChecklistContext.Provider>
   );

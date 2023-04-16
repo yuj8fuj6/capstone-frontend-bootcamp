@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Menu, ConfigProvider } from "antd";
 import { CheckCircleOutlined, WarningOutlined } from "@ant-design/icons";
 import Button from "./Button";
 import ModalChecklist from "./ModalChecklist";
+import { ChecklistContext } from "../contexts/ChecklistContext";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -15,32 +16,82 @@ function getItem(label, key, icon, children, type) {
 }
 
 const Checklist = () => {
+  const {
+    allAuthorities,
+    gfaCodeChecklist,
+    setGfaCodeChecklist,
+    planningCodeChecklist,
+    setPlanningCodeChecklist,
+    accessibilityCodeChecklist,
+    setAccessibilityCodeChecklist,
+    buildingCodeChecklist,
+    setBuildingCodeChecklist,
+    fireCodeChecklist,
+    setFireCodeChecklist,
+  } = useContext(ChecklistContext);
+
   const [openModal, setOpenModal] = useState(false);
+
   const trialURAArray = [
     { header: "2.1", content: "URA is so pro", url: "www.google.com" },
     { header: "2.1", content: "URA is so pro", url: "www.google.com" },
   ];
 
   const items = [
-    getItem(
-      "URA",
-      "sub1",
-      <WarningOutlined />,
-      trialURAArray?.map((code, index) =>
-        getItem(`${code.header} ${code.content}`, index),
+    getItem("URA", "sub1", <WarningOutlined />, [
+      getItem(
+        "GFA Handbook",
+        "sub2",
+        null,
+        gfaCodeChecklist.map((code, index) =>
+          getItem(`${index + 1}. ${code.header} - ${code.content}`, index),
+        ),
       ),
-    ),
-    getItem("BCA", "sub2", <WarningOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
+      getItem(
+        "DC Handbook",
+        "sub3",
+        null,
+        planningCodeChecklist.map((code, index) =>
+          getItem(`${index + 1}. ${code.header} - ${code.content}`, index),
+        ),
+      ),
     ]),
-    getItem("SCDF", "sub3", <WarningOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
+    getItem("BCA", "sub4", <WarningOutlined />, [
+      getItem(
+        "Code of Accessibility",
+        "sub5",
+        null,
+        accessibilityCodeChecklist.map((code, index) =>
+          getItem(
+            `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
+            index,
+          ),
+        ),
+      ),
+      getItem(
+        "Approved Document",
+        "sub6",
+        null,
+        buildingCodeChecklist.map((code, index) =>
+          getItem(
+            `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
+            index,
+          ),
+        ),
+      ),
+    ]),
+    getItem("SCDF", "sub7", <WarningOutlined />, [
+      getItem(
+        "Fire Code",
+        "sub8",
+        null,
+        fireCodeChecklist.map((code, index) =>
+          getItem(
+            `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
+            index,
+          ),
+        ),
+      ),
     ]),
   ];
 

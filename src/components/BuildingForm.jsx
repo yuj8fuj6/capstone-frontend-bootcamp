@@ -9,6 +9,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import Button from "./Button";
 
 import { BACKEND_URL } from "../constants";
+import { ChecklistContext } from "../contexts/ChecklistContext";
 
 const buildingTypeOptions = [
   { value: "", label: "Choose building type" },
@@ -77,6 +78,19 @@ const usageOptions = [
 
 const BuildingForm = () => {
   const { userData, setUserData } = useContext(UserContext);
+  const {
+    allAuthorities,
+    gfaCodeChecklist,
+    setGfaCodeChecklist,
+    planningCodeChecklist,
+    setPlanningCodeChecklist,
+    accessibilityCodeChecklist,
+    setAccessibilityCodeChecklist,
+    buildingCodeChecklist,
+    setBuildingCodeChecklist,
+    fireCodeChecklist,
+    setFireCodeChecklist,
+  } = useContext(ChecklistContext);
   const [stateChange, setStateChange] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
@@ -263,6 +277,15 @@ const BuildingForm = () => {
       })
       .then((res) => {
         console.log(res.data);
+        setOpenModal(true);
+        setGfaCodeChecklist(res.data.gfa_codes);
+        setPlanningCodeChecklist(res.data.planning_codes);
+        setAccessibilityCodeChecklist(res.data.accessibility_codes);
+        setBuildingCodeChecklist(res.data.building_codes);
+        setFireCodeChecklist(res.data.fire_codes);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -271,12 +294,27 @@ const BuildingForm = () => {
       <div className="text-base m-2 border-1 rounded-full border-lightgreen">
         Form
       </div>
-      <div className="overflow-auto h-[250px]">
+      <div className="text-left text-sm ml-4 text-lightgreen">
+        Let us know more about the building!
+      </div>
+      <div className="overflow-auto h-[225px]">
+        <Modal
+          open={openModal}
+          okButtonProps={{ hidden: true }}
+          cancelButtonProps={{ hidden: true }}
+          onOk={() => setOpenModal(false)}
+          onCancel={() => setOpenModal(false)}
+        >
+          <div className="flex flex-row justify-start gap-5">
+            <BsCheckCircle className="text-green-500 text-2xl" /> Building
+            profile successfully updated!
+          </div>
+        </Modal>
         <form
-          className="grid grid-cols-4 text-xs m-3 gap-3"
+          className="grid grid-cols-4 text-xs m-3 gap-3 drop-shadow-md border-1 bg-white rounded-xl p-3"
           onSubmit={formik.handleSubmit}
         >
-          <div className="col-span-4 grid grid-cols-4">
+          <div className="col-span-4 grid grid-cols-4 items-center">
             <label htmlFor="building_type" className="text-left col-span-1">
               Building Type:
             </label>
@@ -570,7 +608,7 @@ const BuildingForm = () => {
               </div>
             ) : null}
           </div>
-          <div className="col-span-4 grid grid-cols-12 gap-2">
+          <div className="col-span-4 grid grid-cols-12 gap-2 items-center">
             <label htmlFor="block_no" className="text-left col-span-3">
               Block No.:
             </label>
@@ -611,11 +649,11 @@ const BuildingForm = () => {
             ) : null}
           </div>
           <button
-            className="rounded-full border-2 border-darkgreen p-1 font-bold mt-2 hover:bg-lightgreen text-sm disabled:border-slate-300 disabled:text-slate-300 col-end-5"
+            className="rounded-full border-2 border-darkgreen p-1 font-bold hover:bg-lightgreen text-sm disabled:border-slate-300 disabled:text-slate-300 col-end-5"
             type="submit"
             disabled={stateChange}
           >
-            Update
+            Submit
           </button>
         </form>
       </div>
