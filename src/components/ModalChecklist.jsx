@@ -9,7 +9,31 @@ import { BACKEND_URL } from "../constants";
 const ModalChecklist = (props) => {
   const { openModal, setOpenModal } = props;
   const { isLoading, isAuthenticated } = useAuth0();
-  const { allAuthorities } = useContext(ChecklistContext);
+  const {
+    allAuthorities,
+    gfaCodeChecklist,
+    setGfaCodeChecklist,
+    planningCodeChecklist,
+    setPlanningCodeChecklist,
+    accessibilityCodeChecklist,
+    setAccessibilityCodeChecklist,
+    buildingCodeChecklist,
+    setBuildingCodeChecklist,
+    fireCodeChecklist,
+    setFireCodeChecklist,
+    allBuildings,
+    setAllBuildings,
+    completedGfaCodeCheck,
+    setCompletedGfaCodeCheck,
+    completedPlanningCodeCheck,
+    setCompletedPlanningCodeCheck,
+    completedAccessibilityCodeCheck,
+    setCompletedAccessibilityCodeCheck,
+    completedBuildingCodeCheck,
+    setCompletedBuildingCodeCheck,
+    completedFireCodeCheck,
+    setCompletedFireCodeCheck,
+  } = useContext(ChecklistContext);
 
   return (
     <>

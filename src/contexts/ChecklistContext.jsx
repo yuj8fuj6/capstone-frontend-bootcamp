@@ -19,6 +19,17 @@ export const ChecklistContextProvider = (props) => {
   const [buildingCodeChecklist, setBuildingCodeChecklist] = useState([]);
   const [fireCodeChecklist, setFireCodeChecklist] = useState([]);
 
+  const [completedGfaCodeCheck, setCompletedGfaCodeCheck] = useState([]);
+  const [completedPlanningCodeCheck, setCompletedPlanningCodeCheck] = useState(
+    [],
+  );
+  const [completedAccessibilityCodeCheck, setCompletedAccessibilityCodeCheck] =
+    useState([]);
+  const [completedBuildingCodeCheck, setCompletedBuildingCodeCheck] = useState(
+    [],
+  );
+  const [completedFireCodeCheck, setCompletedFireCodeCheck] = useState([]);
+
   const { userData, setUserData } = useContext(UserContext);
 
   const { isLoading, isAuthenticated } = useAuth0();
@@ -29,9 +40,14 @@ export const ChecklistContextProvider = (props) => {
         .all([
           axios.get(`${BACKEND_URL}/checklists/allAuthorities`),
           axios.get(`${BACKEND_URL}/checklists/allBuildings/${userData.id}`),
+          axios.get(`${BACKEND_URL}/checklists/getAllCheckedGfa`),
+          axios.get(`${BACKEND_URL}/checklists/getAllCheckedPlanning`),
+          axios.get(`${BACKEND_URL}/checklists/getAllCheckedAccessibility`),
+          axios.get(`${BACKEND_URL}/checklists/getAllCheckedBuilding`),
+          axios.get(`${BACKEND_URL}/checklists/getAllCheckedFire`),
         ])
         .then(
-          axios.spread((data1, data2) => {
+          axios.spread((data1, data2, data3, data4, data5, data6, data7) => {
             setAllAuthorities(data1.data);
             setAllBuildings(data2.data);
             setGfaCodeChecklist(
@@ -48,8 +64,19 @@ export const ChecklistContextProvider = (props) => {
               data2.data[data2.data.length - 1].model_building.building_codes,
             );
             setFireCodeChecklist(
-              data2.data(data2.data.length - 1).model_building.fire_codes,
+              data2.data[data2.data.length - 1].model_building.fire_codes,
             );
+            setCompletedGfaCodeCheck(data3.data.map((a) => a.gfa_code));
+            setCompletedPlanningCodeCheck(
+              data4.data.map((a) => a.planning_code),
+            );
+            setCompletedAccessibilityCodeCheck(
+              data5.data.map((a) => a.accessibility_code),
+            );
+            setCompletedBuildingCodeCheck(
+              data6.data.map((a) => a.building_code),
+            );
+            setCompletedFireCodeCheck(data7.data.map((a) => a.fire_code));
           }),
         );
     }
@@ -71,6 +98,16 @@ export const ChecklistContextProvider = (props) => {
         setFireCodeChecklist,
         allBuildings,
         setAllBuildings,
+        completedGfaCodeCheck,
+        setCompletedGfaCodeCheck,
+        completedPlanningCodeCheck,
+        setCompletedPlanningCodeCheck,
+        completedAccessibilityCodeCheck,
+        setCompletedAccessibilityCodeCheck,
+        completedBuildingCodeCheck,
+        setCompletedBuildingCodeCheck,
+        completedFireCodeCheck,
+        setCompletedFireCodeCheck,
       }}
     >
       {props.children}

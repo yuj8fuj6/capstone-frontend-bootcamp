@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "../contexts/UserContext";
+import { ChecklistContext } from "../contexts/ChecklistContext";
 import axios from "axios";
 import { makeOption } from "./Option";
 import { Modal } from "antd";
@@ -9,7 +10,6 @@ import { BsCheckCircle } from "react-icons/bs";
 import Button from "./Button";
 
 import { BACKEND_URL } from "../constants";
-import { ChecklistContext } from "../contexts/ChecklistContext";
 
 const buildingTypeOptions = [
   { value: "", label: "Choose building type" },
@@ -90,8 +90,18 @@ const BuildingForm = () => {
     setBuildingCodeChecklist,
     fireCodeChecklist,
     setFireCodeChecklist,
-    allBuildings, 
-    setAllBuildings, 
+    allBuildings,
+    setAllBuildings,
+    completedGfaCodeCheck,
+    setCompletedGfaCodeCheck,
+    completedPlanningCodeCheck,
+    setCompletedPlanningCodeCheck,
+    completedAccessibilityCodeCheck,
+    setCompletedAccessibilityCodeCheck,
+    completedBuildingCodeCheck,
+    setCompletedBuildingCodeCheck,
+    completedFireCodeCheck,
+    setCompletedFireCodeCheck,
   } = useContext(ChecklistContext);
   const [stateChange, setStateChange] = useState(true);
   const [openModal, setOpenModal] = useState(false);

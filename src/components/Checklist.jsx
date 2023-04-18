@@ -1,9 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Menu, ConfigProvider } from "antd";
 import { CheckCircleOutlined, WarningOutlined } from "@ant-design/icons";
 import Button from "./Button";
 import ModalChecklist from "./ModalChecklist";
+import { UserContext } from "../contexts/UserContext";
 import { ChecklistContext } from "../contexts/ChecklistContext";
+import axios from "axios";
+
+import { BACKEND_URL } from "../constants";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -30,14 +34,40 @@ const Checklist = () => {
     setFireCodeChecklist,
     allBuildings,
     setAllBuildings,
+    completedGfaCodeCheck,
+    setCompletedGfaCodeCheck,
+    completedPlanningCodeCheck,
+    setCompletedPlanningCodeCheck,
+    completedAccessibilityCodeCheck,
+    setCompletedAccessibilityCodeCheck,
+    completedBuildingCodeCheck,
+    setCompletedBuildingCodeCheck,
+    completedFireCodeCheck,
+    setCompletedFireCodeCheck,
   } = useContext(ChecklistContext);
 
-  const [openModal, setOpenModal] = useState(false);
+  const { userData, setUserData } = useContext(UserContext);
 
-  const trialURAArray = [
-    { header: "2.1", content: "URA is so pro", url: "www.google.com" },
-    { header: "2.1", content: "URA is so pro", url: "www.google.com" },
-  ];
+  const [openModal, setOpenModal] = useState(false);
+  const [pendingGfaCodeCheck, setPendingGfaCodeCheck] = useState([]);
+  const [pendingPlanningCodeCheck, setPendingPlanningCodeCheck] = useState([]);
+  const [pendingAccessibilityCodeCheck, setPendingAccessibilityCodeCheck] =
+    useState([]);
+  const [pendingBuildingCodeCheck, setPendingBuildingCodeCheck] = useState([]);
+  const [pendingFireCodeCheck, setPendingFireCodeCheck] = useState([]);
+
+  console.log(gfaCodeChecklist);
+  console.log(completedGfaCodeCheck);
+
+  useEffect(() => {
+    setPendingGfaCodeCheck(
+      gfaCodeChecklist.filter((i) =>
+        completedGfaCodeCheck.findIndex((f) => f.id === i.id),
+      ),
+    );
+  }, []);
+
+  console.log(pendingGfaCodeCheck);
 
   const items = [
     getItem("URA", "sub1", <WarningOutlined />, [
@@ -97,36 +127,82 @@ const Checklist = () => {
     ]),
   ];
 
-  console.log(items);
-  console.log(allBuildings);
-
   const completedItems = [
-    getItem(
-      "URA - Completed",
-      "sub1",
-      <CheckCircleOutlined />,
-      trialURAArray?.map((code, index) =>
-        getItem(`${code.header} ${code.content}`, index),
+    getItem("URA - Completed", "sub9", <CheckCircleOutlined />, [
+      getItem(
+        "GFA Handbook",
+        "sub10",
+        null,
+        completedGfaCodeCheck.map((code, index) =>
+          getItem(`${index + 1}. ${code.header} - ${code.content}`, index),
+        ),
       ),
-    ),
-    getItem("BCA - Completed", "sub2", <CheckCircleOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
+      getItem(
+        "DC Handbook",
+        "sub11",
+        null,
+        completedPlanningCodeCheck.map((code, index) =>
+          getItem(`${index + 1}. ${code.header} - ${code.content}`, index),
+        ),
+      ),
     ]),
-    getItem("SCDF - Completed", "sub3", <CheckCircleOutlined />, [
-      getItem("Option 9", "9"),
-      getItem("Option 10", "10"),
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
+    getItem("BCA - Completed", "sub12", <CheckCircleOutlined />, [
+      getItem(
+        "Code of Accessibility",
+        "sub13",
+        null,
+        completedAccessibilityCodeCheck.map((code, index) =>
+          getItem(
+            `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
+            index,
+          ),
+        ),
+      ),
+      getItem(
+        "Approved Document",
+        "sub14",
+        null,
+        completedBuildingCodeCheck.map((code, index) =>
+          getItem(
+            `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
+            index,
+          ),
+        ),
+      ),
+    ]),
+    getItem("SCDF - Completed", "sub15", <CheckCircleOutlined />, [
+      getItem(
+        "Fire Code",
+        "sub16",
+        null,
+        completedFireCodeCheck.map((code, index) =>
+          getItem(
+            `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
+            index,
+          ),
+        ),
+      ),
     ]),
   ];
 
   const includesAll = (arr, values) => values.every((v) => arr.includes(v));
 
-  const onClick = (e) => {
-    console.log(includesAll(e.keyPath, ['sub1', 'sub2']));
+  const onClick = async (e) => {
+    if (includesAll(e.keyPath, ["sub1", "sub2"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkGfaCode`, {
+          gfa_code_id: gfaCodeChecklist[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[allBuildings.length - 1].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
