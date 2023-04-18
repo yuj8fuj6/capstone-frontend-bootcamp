@@ -90,6 +90,8 @@ const BuildingForm = () => {
     setBuildingCodeChecklist,
     fireCodeChecklist,
     setFireCodeChecklist,
+    allBuildings, 
+    setAllBuildings, 
   } = useContext(ChecklistContext);
   const [stateChange, setStateChange] = useState(true);
   const [openModal, setOpenModal] = useState(false);
@@ -276,7 +278,6 @@ const BuildingForm = () => {
         user_id: userData.id,
       })
       .then((res) => {
-        console.log(res.data);
         setOpenModal(true);
         setGfaCodeChecklist(res.data.gfa_codes);
         setPlanningCodeChecklist(res.data.planning_codes);

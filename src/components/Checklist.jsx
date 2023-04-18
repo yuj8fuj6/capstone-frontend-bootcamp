@@ -28,6 +28,8 @@ const Checklist = () => {
     setBuildingCodeChecklist,
     fireCodeChecklist,
     setFireCodeChecklist,
+    allBuildings,
+    setAllBuildings,
   } = useContext(ChecklistContext);
 
   const [openModal, setOpenModal] = useState(false);
@@ -95,6 +97,9 @@ const Checklist = () => {
     ]),
   ];
 
+  console.log(items);
+  console.log(allBuildings);
+
   const completedItems = [
     getItem(
       "URA - Completed",
@@ -118,7 +123,11 @@ const Checklist = () => {
     ]),
   ];
 
-  const onClick = (e) => {};
+  const includesAll = (arr, values) => values.every((v) => arr.includes(v));
+
+  const onClick = (e) => {
+    console.log(includesAll(e.keyPath, ['sub1', 'sub2']));
+  };
 
   return (
     <div>
