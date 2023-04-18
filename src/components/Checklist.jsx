@@ -48,6 +48,8 @@ const Checklist = () => {
 
   const { userData, setUserData } = useContext(UserContext);
 
+  const omit = require("lodash.omit");
+
   const [openModal, setOpenModal] = useState(false);
   const [pendingGfaCodeCheck, setPendingGfaCodeCheck] = useState([]);
   const [pendingPlanningCodeCheck, setPendingPlanningCodeCheck] = useState([]);
@@ -56,18 +58,21 @@ const Checklist = () => {
   const [pendingBuildingCodeCheck, setPendingBuildingCodeCheck] = useState([]);
   const [pendingFireCodeCheck, setPendingFireCodeCheck] = useState([]);
 
-  console.log(gfaCodeChecklist);
-  console.log(completedGfaCodeCheck);
-
+  // Use effect for GFA code
   useEffect(() => {
-    setPendingGfaCodeCheck(
-      gfaCodeChecklist.filter((i) =>
-        completedGfaCodeCheck.findIndex((f) => f.id === i.id),
-      ),
-    );
-  }, []);
+    if (gfaCodeChecklist.length && completedGfaCodeCheck.length) {
+      const pendingCodeCheck = gfaCodeChecklist.map((obj) =>
+        omit(obj, [`gfa_code_model_buildings`]),
+      );
+      const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
+        return !completedGfaCodeCheck.find((f) => f.id === i.id);
+      });
+      setPendingGfaCodeCheck(filterPendingCodeCheck);
+    }
+  }, [gfaCodeChecklist, completedGfaCodeCheck]);
 
-  console.log(pendingGfaCodeCheck);
+  // Use effect for Planning code 
+  
 
   const items = [
     getItem("URA", "sub1", <WarningOutlined />, [
@@ -75,7 +80,7 @@ const Checklist = () => {
         "GFA Handbook",
         "sub2",
         null,
-        gfaCodeChecklist.map((code, index) =>
+        pendingGfaCodeCheck.map((code, index) =>
           getItem(`${index + 1}. ${code.header} - ${code.content}`, index),
         ),
       ),
@@ -127,6 +132,7 @@ const Checklist = () => {
     ]),
   ];
 
+  // Mapping completed items 
   const completedItems = [
     getItem("URA - Completed", "sub9", <CheckCircleOutlined />, [
       getItem(
