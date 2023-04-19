@@ -252,6 +252,94 @@ const Checklist = () => {
           console.log(err);
         });
     }
+    if (includesAll(e.keyPath, ["sub1", "sub3"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkPlanningCode`, {
+          planning_code_id: pendingPlanningCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedPlanningCodeCheck([
+            ...completedPlanningCodeCheck,
+            res.data.planning_code,
+          ]);
+          setPendingPlanningCodeCheck([
+            ...pendingPlanningCodeCheck,
+            res.data.planning_code,
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub4", "sub5"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkAccessibilityCode`, {
+          accessibility_code_id: pendingAccessibilityCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedAccessibilityCodeCheck([
+            ...completedAccessibilityCodeCheck,
+            res.data.accessibility_code,
+          ]);
+          setPendingAccessibilityCodeCheck([
+            ...pendingAccessibilityCodeCheck,
+            res.data.accessibility_code,
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub4", "sub6"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkBuildingCode`, {
+          building_code_id: pendingBuildingCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedBuildingCodeCheck([
+            ...completedBuildingCodeCheck,
+            res.data.building_code,
+          ]);
+          setPendingBuildingCodeCheck([
+            ...pendingBuildingCodeCheck,
+            res.data.building_code,
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub7", "sub8"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkFireCode`, {
+          fire_code_id: pendingFireCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedFireCodeCheck([
+            ...completedFireCodeCheck,
+            res.data.fire_code,
+          ]);
+          setPendingFireCodeCheck([
+            ...pendingFireCodeCheck,
+            res.data.fire_code,
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (

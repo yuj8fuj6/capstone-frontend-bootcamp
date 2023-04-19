@@ -7,7 +7,6 @@ import axios from "axios";
 import { makeOption } from "./Option";
 import { Modal } from "antd";
 import { BsCheckCircle } from "react-icons/bs";
-import Button from "./Button";
 
 import { BACKEND_URL } from "../constants";
 
@@ -296,7 +295,12 @@ const BuildingForm = () => {
         );
         setBuildingCodeChecklist(res.data.model_building.building_codes);
         setFireCodeChecklist(res.data.model_building.fire_codes);
-        setAllBuildings([...allBuildings, res.data]);
+        setCompletedGfaCodeCheck([]);
+        setCompletedPlanningCodeCheck([]);
+        setCompletedAccessibilityCodeCheck([]);
+        setCompletedBuildingCodeCheck([]);
+        setCompletedFireCodeCheck([]);
+        setAllBuildings([res.data, ...allBuildings]);
       })
       .catch((err) => {
         console.log(err);
