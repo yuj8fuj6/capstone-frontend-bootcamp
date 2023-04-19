@@ -289,11 +289,14 @@ const BuildingForm = () => {
       })
       .then((res) => {
         setOpenModal(true);
-        setGfaCodeChecklist(res.data.gfa_codes);
-        setPlanningCodeChecklist(res.data.planning_codes);
-        setAccessibilityCodeChecklist(res.data.accessibility_codes);
-        setBuildingCodeChecklist(res.data.building_codes);
-        setFireCodeChecklist(res.data.fire_codes);
+        setGfaCodeChecklist(res.data.model_building.gfa_codes);
+        setPlanningCodeChecklist(res.data.model_building.planning_codes);
+        setAccessibilityCodeChecklist(
+          res.data.model_building.accessibility_codes,
+        );
+        setBuildingCodeChecklist(res.data.model_building.building_codes);
+        setFireCodeChecklist(res.data.model_building.fire_codes);
+        setAllBuildings([...allBuildings, res.data]);
       })
       .catch((err) => {
         console.log(err);

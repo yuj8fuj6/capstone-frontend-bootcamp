@@ -58,21 +58,60 @@ const Checklist = () => {
   const [pendingBuildingCodeCheck, setPendingBuildingCodeCheck] = useState([]);
   const [pendingFireCodeCheck, setPendingFireCodeCheck] = useState([]);
 
-  // Use effect for GFA code
+  // Use effect for pending GFA code
   useEffect(() => {
-    if (gfaCodeChecklist.length && completedGfaCodeCheck.length) {
-      const pendingCodeCheck = gfaCodeChecklist.map((obj) =>
-        omit(obj, [`gfa_code_model_buildings`]),
-      );
-      const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
-        return !completedGfaCodeCheck.find((f) => f.id === i.id);
-      });
-      setPendingGfaCodeCheck(filterPendingCodeCheck);
-    }
+    const pendingCodeCheck = gfaCodeChecklist.map((obj) =>
+      omit(obj, [`gfa_code_model_buildings`]),
+    );
+    const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
+      return !completedGfaCodeCheck.find((f) => f.id === i.id);
+    });
+    setPendingGfaCodeCheck(filterPendingCodeCheck);
   }, [gfaCodeChecklist, completedGfaCodeCheck]);
 
-  // Use effect for Planning code 
-  
+  // Use effect for pending Planning code
+  useEffect(() => {
+    const pendingCodeCheck = planningCodeChecklist.map((obj) =>
+      omit(obj, [`planning_code_model_buildings`]),
+    );
+    const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
+      return !completedPlanningCodeCheck.find((f) => f.id === i.id);
+    });
+    setPendingPlanningCodeCheck(filterPendingCodeCheck);
+  }, [planningCodeChecklist, completedPlanningCodeCheck]);
+
+  // Use effect for pending Accessibility code
+  useEffect(() => {
+    const pendingCodeCheck = accessibilityCodeChecklist.map((obj) =>
+      omit(obj, [`accessibility_code_model_buildings`]),
+    );
+    const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
+      return !completedAccessibilityCodeCheck.find((f) => f.id === i.id);
+    });
+    setPendingAccessibilityCodeCheck(filterPendingCodeCheck);
+  }, [accessibilityCodeChecklist, completedAccessibilityCodeCheck]);
+
+  // Use effect for pending Building code
+  useEffect(() => {
+    const pendingCodeCheck = buildingCodeChecklist.map((obj) =>
+      omit(obj, [`building_code_model_buildings`]),
+    );
+    const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
+      return !completedBuildingCodeCheck.find((f) => f.id === i.id);
+    });
+    setPendingBuildingCodeCheck(filterPendingCodeCheck);
+  }, [buildingCodeChecklist, completedBuildingCodeCheck]);
+
+  // Use effect for pending Fire code
+  useEffect(() => {
+    const pendingCodeCheck = fireCodeChecklist.map((obj) =>
+      omit(obj, [`fire_code_model_buildings`]),
+    );
+    const filterPendingCodeCheck = pendingCodeCheck.filter((i) => {
+      return !completedFireCodeCheck.find((f) => f.id === i.id);
+    });
+    setPendingFireCodeCheck(filterPendingCodeCheck);
+  }, [fireCodeChecklist, completedFireCodeCheck]);
 
   const items = [
     getItem("URA", "sub1", <WarningOutlined />, [
@@ -88,7 +127,7 @@ const Checklist = () => {
         "DC Handbook",
         "sub3",
         null,
-        planningCodeChecklist.map((code, index) =>
+        pendingPlanningCodeCheck.map((code, index) =>
           getItem(`${index + 1}. ${code.header} - ${code.content}`, index),
         ),
       ),
@@ -98,7 +137,7 @@ const Checklist = () => {
         "Code of Accessibility",
         "sub5",
         null,
-        accessibilityCodeChecklist.map((code, index) =>
+        pendingAccessibilityCodeCheck.map((code, index) =>
           getItem(
             `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
             index,
@@ -109,7 +148,7 @@ const Checklist = () => {
         "Approved Document",
         "sub6",
         null,
-        buildingCodeChecklist.map((code, index) =>
+        pendingBuildingCodeCheck.map((code, index) =>
           getItem(
             `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
             index,
@@ -122,7 +161,7 @@ const Checklist = () => {
         "Fire Code",
         "sub8",
         null,
-        fireCodeChecklist.map((code, index) =>
+        pendingFireCodeCheck.map((code, index) =>
           getItem(
             `${index + 1}. ${code.chapter}.${code.clause_no} - ${code.content}`,
             index,
@@ -132,7 +171,7 @@ const Checklist = () => {
     ]),
   ];
 
-  // Mapping completed items 
+  // Mapping completed items
   const completedItems = [
     getItem("URA - Completed", "sub9", <CheckCircleOutlined />, [
       getItem(
@@ -197,13 +236,17 @@ const Checklist = () => {
     if (includesAll(e.keyPath, ["sub1", "sub2"])) {
       await axios
         .post(`${BACKEND_URL}/checklists/checkGfaCode`, {
-          gfa_code_id: gfaCodeChecklist[e.keyPath[0]].id,
+          gfa_code_id: pendingGfaCodeCheck[e.keyPath[0]].id,
           check: true,
-          building_id: allBuildings[allBuildings.length - 1].id,
+          building_id: allBuildings[0].id,
           user_id: userData.id,
         })
         .then((res) => {
-          console.log(res);
+          setCompletedGfaCodeCheck([
+            ...completedGfaCodeCheck,
+            res.data.gfa_code,
+          ]);
+          setPendingGfaCodeCheck([...pendingGfaCodeCheck, res.data.gfa_code]);
         })
         .catch((err) => {
           console.log(err);

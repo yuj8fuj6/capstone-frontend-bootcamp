@@ -48,35 +48,45 @@ export const ChecklistContextProvider = (props) => {
         ])
         .then(
           axios.spread((data1, data2, data3, data4, data5, data6, data7) => {
+            const selectedBuildingId = data2.data[0].id;
             setAllAuthorities(data1.data);
             setAllBuildings(data2.data);
-            setGfaCodeChecklist(
-              data2.data[data2.data.length - 1].model_building.gfa_codes,
-            );
+            setGfaCodeChecklist(data2.data[0].model_building.gfa_codes);
             setPlanningCodeChecklist(
-              data2.data[data2.data.length - 1].model_building.planning_codes,
+              data2.data[0].model_building.planning_codes,
             );
             setAccessibilityCodeChecklist(
-              data2.data[data2.data.length - 1].model_building
-                .accessibility_codes,
+              data2.data[0].model_building.accessibility_codes,
             );
             setBuildingCodeChecklist(
-              data2.data[data2.data.length - 1].model_building.building_codes,
+              data2.data[0].model_building.building_codes,
             );
-            setFireCodeChecklist(
-              data2.data[data2.data.length - 1].model_building.fire_codes,
+            setFireCodeChecklist(data2.data[0].model_building.fire_codes);
+            setCompletedGfaCodeCheck(
+              data3.data
+                .filter((el) => el.building_id === selectedBuildingId)
+                .map((a) => a.gfa_code),
             );
-            setCompletedGfaCodeCheck(data3.data.map((a) => a.gfa_code));
             setCompletedPlanningCodeCheck(
-              data4.data.map((a) => a.planning_code),
+              data4.data
+                .filter((el) => el.building_id === selectedBuildingId)
+                .map((a) => a.planning_code),
             );
             setCompletedAccessibilityCodeCheck(
-              data5.data.map((a) => a.accessibility_code),
+              data5.data
+                .filter((el) => el.building_id === selectedBuildingId)
+                .map((a) => a.accessibility_code),
             );
             setCompletedBuildingCodeCheck(
-              data6.data.map((a) => a.building_code),
+              data6.data
+                .filter((el) => el.building_id === selectedBuildingId)
+                .map((a) => a.building_code),
             );
-            setCompletedFireCodeCheck(data7.data.map((a) => a.fire_code));
+            setCompletedFireCodeCheck(
+              data7.data
+                .filter((el) => el.building_id === selectedBuildingId)
+                .map((a) => a.fire_code),
+            );
           }),
         );
     }
