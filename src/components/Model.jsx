@@ -1,19 +1,78 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { ModelContext } from "../contexts/ModelContext";
 
 import CanvasLoader from "./CanvasLoader";
 
 const Model = () => {
-  const model = useGLTF("./models/Industrial.glb");
+  const { modelType, setModelType } = useContext(ModelContext);
+
+  const industrialModel = useGLTF("./models/Industrial(Trial).glb");
+  const houseModel = useGLTF("./models/House.glb");
+  const communityModel = useGLTF("./models/Community.glb");
 
   return (
-    <mesh>
-      <hemisphereLight intensity={0.15} groundColor="black" />
-      <pointLight intensity={1} />
-      <primitive object={model.scene} position={[0, -3.25, -1.5]} />
-    </mesh>
+    <>
+      {modelType === "Industrial" && (
+        <mesh>
+          <hemisphereLight intensity={0.15} groundColor="black" />
+          <pointLight intensity={1} />
+          <spotLight
+            position={[-20, 50, 10]}
+            angle={0.12}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
+          <primitive
+            object={industrialModel.scene}
+            position={[0, -3.25, -1.5]}
+            scale={0.75}
+          />
+        </mesh>
+      )}
+      {modelType === "Residential" && (
+        <mesh>
+          <hemisphereLight intensity={0.15} groundColor="black" />
+          <pointLight intensity={1} />
+          <spotLight
+            position={[-20, 50, 10]}
+            angle={0.12}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
+          <primitive
+            object={houseModel.scene}
+            position={[0, -3.25, -1.5]}
+            scale={0.75}
+          />
+        </mesh>
+      )}
+      {modelType === "Recreation" && (
+        <mesh>
+          <hemisphereLight intensity={0.15} groundColor="black" />
+          <pointLight intensity={1} />
+          <spotLight
+            position={[-20, 50, 10]}
+            angle={0.12}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
+          <primitive
+            object={communityModel.scene}
+            position={[0, -3.25, -1.5]}
+            scale={0.75}
+          />
+        </mesh>
+      )}
+    </>
   );
 };
 

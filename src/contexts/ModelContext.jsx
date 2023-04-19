@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { createContext, useState } from "react";
 
-const ModelContext = () => {
+export const ModelContext = createContext();
+
+export const ModelContextProvider = (props) => {
+  const [modelType, setModelType] = useState("Residential")
+
   return (
-    <div>ModelContext</div>
-  )
-}
+    <ModelContext.Provider value={{modelType, setModelType }}>
+      {props.children}
+    </ModelContext.Provider>
+  );
+};
 
-export default ModelContext

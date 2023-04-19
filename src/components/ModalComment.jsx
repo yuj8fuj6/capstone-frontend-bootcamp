@@ -183,7 +183,7 @@ const ModalComment = (props) => {
                     <div className="text-xs font-bold">
                       {currentPost.user.name} -{" "}
                       <span className="font-light">
-                        posted <ReactTimeAgo date={currentPost.updatedAt} />
+                        posted <ReactTimeAgo date={currentPost.createdAt} />
                       </span>
                     </div>
                     <div className="text-left text-xs font-bold leading-loose">
@@ -282,7 +282,7 @@ const ModalComment = (props) => {
                   <div className="font-bold">
                     {thread.user.name} -{" "}
                     <span className="font-light">
-                      commented <ReactTimeAgo date={thread.updatedAt} />
+                      commented <ReactTimeAgo date={thread.createdAt} />
                     </span>
                   </div>
                   <div className="font-light text-justify">

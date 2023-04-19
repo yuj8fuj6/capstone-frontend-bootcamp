@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { CommentContext } from "../contexts/CommentContext";
-import { makeOption } from "./Option";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useAuth0 } from "@auth0/auth0-react";
 import CommentList from "./CommentList";
 
 const Comment = () => {
@@ -16,9 +11,7 @@ const Comment = () => {
         Comment
       </div>
       <div className="grid grid-cols-1">
-        <CommentList
-          userID={userData.id}
-        />
+        <CommentList userID={userData.id} />
       </div>
     </div>
   );
