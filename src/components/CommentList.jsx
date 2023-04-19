@@ -107,9 +107,11 @@ const codeOptions = [
   },
 ];
 
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 const CommentList = (props) => {
   const { userID } = props;
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   const [openModal, setOpenModal] = useState(false);
   const [openPostModal, setOpenPostModal] = useState(false);

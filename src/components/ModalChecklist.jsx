@@ -3,12 +3,14 @@ import { Modal } from "antd";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ChecklistContext } from "../contexts/ChecklistContext";
+import { BsCheck2Square, BsSquare } from "react-icons/bs";
 
 import { BACKEND_URL } from "../constants";
 
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 const ModalChecklist = (props) => {
   const { openModal, setOpenModal } = props;
-  const { isLoading, isAuthenticated } = useAuth0();
   const {
     allAuthorities,
     gfaCodeChecklist,
@@ -34,6 +36,8 @@ const ModalChecklist = (props) => {
     completedFireCodeCheck,
     setCompletedFireCodeCheck,
   } = useContext(ChecklistContext);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   return (
     <>

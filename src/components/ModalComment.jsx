@@ -17,9 +17,11 @@ import { Link } from "react-router-dom";
 
 import { BACKEND_URL } from "../constants";
 
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 const ModalComment = (props) => {
   const { openModal, setOpenModal, postID, userID } = props;
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { allPostData, setAllPostData, threadCount, setThreadCount } =
     useContext(CommentContext);
 

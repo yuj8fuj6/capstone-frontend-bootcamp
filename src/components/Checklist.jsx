@@ -6,6 +6,7 @@ import ModalChecklist from "./ModalChecklist";
 import { UserContext } from "../contexts/UserContext";
 import { ChecklistContext } from "../contexts/ChecklistContext";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { BACKEND_URL } from "../constants";
 
@@ -18,6 +19,8 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
+
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 
 const Checklist = () => {
   const {
@@ -57,6 +60,8 @@ const Checklist = () => {
     useState([]);
   const [pendingBuildingCodeCheck, setPendingBuildingCodeCheck] = useState([]);
   const [pendingFireCodeCheck, setPendingFireCodeCheck] = useState([]);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   // Use effect for pending GFA code
   useEffect(() => {
