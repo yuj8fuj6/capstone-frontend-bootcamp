@@ -105,6 +105,8 @@ const ModalChecklist = (props) => {
     setPendingFireCodeCheck(filterPendingCodeCheck);
   }, [fireCodeChecklist, completedFireCodeCheck]);
 
+  // GFA Code
+
   const handlePendingGfaClick = async (index) => {
     await axios
       .post(`${BACKEND_URL}/checklists/checkGfaCode`, {
@@ -142,6 +144,183 @@ const ModalChecklist = (props) => {
       });
   };
 
+  // Planning Code
+
+  const handlePendingPlanningClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkPlanningCode`, {
+        planning_code_id: pendingPlanningCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedPlanningCodeCheck([
+          ...completedPlanningCodeCheck,
+          res.data.planning_code,
+        ]);
+        setPendingPlanningCodeCheck([
+          ...pendingPlanningCodeCheck,
+          res.data.planning_code,
+        ]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCompletedPlanningClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkPlanningCode`, {
+        planning_code_id: completedPlanningCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedPlanningCodeCheck(
+          completedPlanningCodeCheck.filter(
+            (el) => el.id !== completedPlanningCodeCheck[index].id,
+          ),
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Accessibility Code
+
+  const handlePendingAccessibilityClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkAccessibilityCode`, {
+        accessibility_code_id: pendingAccessibilityCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedAccessibilityCodeCheck([
+          ...completedAccessibilityCodeCheck,
+          res.data.accessibility_code,
+        ]);
+        setPendingAccessibilityCodeCheck([
+          ...pendingAccessibilityCodeCheck,
+          res.data.accessibility_code,
+        ]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCompletedAccessibilityClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkAccessibilityCode`, {
+        accessibility_code_id: completedAccessibilityCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedAccessibilityCodeCheck(
+          completedAccessibilityCodeCheck.filter(
+            (el) => el.id !== completedAccessibilityCodeCheck[index].id,
+          ),
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Building Code
+
+  const handlePendingBuildingClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkBuildingCode`, {
+        building_code_id: pendingBuildingCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedBuildingCodeCheck([
+          ...completedBuildingCodeCheck,
+          res.data.building_code,
+        ]);
+        setPendingBuildingCodeCheck([
+          ...pendingBuildingCodeCheck,
+          res.data.building_code,
+        ]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCompletedBuildingClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkBuildingCode`, {
+        building_code_id: completedBuildingCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedBuildingCodeCheck(
+          completedBuildingCodeCheck.filter(
+            (el) => el.id !== completedBuildingCodeCheck[index].id,
+          ),
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Fire Code
+
+  const handlePendingFireClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkFireCode`, {
+        fire_code_id: pendingFireCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedFireCodeCheck([
+          ...completedFireCodeCheck,
+          res.data.fire_code,
+        ]);
+        setPendingFireCodeCheck([...pendingFireCodeCheck, res.data.fire_code]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCompletedFireClick = async (index) => {
+    await axios
+      .post(`${BACKEND_URL}/checklists/checkFireCode`, {
+        fire_code_id: completedFireCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+      })
+      .then((res) => {
+        setCompletedFireCodeCheck(
+          completedFireCodeCheck.filter(
+            (el) => el.id !== completedFireCodeCheck[index].id,
+          ),
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <Modal
@@ -162,7 +341,7 @@ const ModalChecklist = (props) => {
               Outstanding
             </div>
             <div className="border-1 border-darkgreen rounded-xl p-2 items-center">
-              <div className="font-bold">URA - DC Handbook</div>
+              <div className="font-bold">URA - GFA Handbook</div>
               <div className="h-[350px] overflow-auto text-xs">
                 {pendingGfaCodeCheck.map((clause, index) => (
                   <div
@@ -231,12 +410,15 @@ const ModalChecklist = (props) => {
               Items Outstanding
             </div>
             <div className="border-1 border-darkgreen rounded-xl p-2 items-center">
-              <div className="font-bold">URA - GFA Handbook</div>
+              <div className="font-bold">URA - DC Handbook</div>
               <div className="h-[350px] overflow-auto text-xs">
                 {pendingPlanningCodeCheck.map((clause, index) => (
                   <div className="grid grid-cols-12 items-center mt-2">
                     <div className="col-span-1 font-bold">{index + 1}.</div>
-                    <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                    <div
+                      className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                      onClick={() => handlePendingPlanningClick(index)}
+                    >
                       <div className="grid grid-cols-1">
                         <div className="font-bold text-xxs">
                           {clause.header}
@@ -262,7 +444,10 @@ const ModalChecklist = (props) => {
                   {completedPlanningCodeCheck.map((clause, index) => (
                     <div className="grid grid-cols-12 items-center mt-2 text-lightgreen">
                       <div className="col-span-1 font-bold">{index + 1}.</div>
-                      <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                      <div
+                        className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                        onClick={() => handleCompletedPlanningClick(index)}
+                      >
                         <div className="grid grid-cols-1">
                           <div className="font-bold text-xxs line-through">
                             {clause.header}
@@ -299,7 +484,10 @@ const ModalChecklist = (props) => {
                 {pendingAccessibilityCodeCheck.map((clause, index) => (
                   <div className="grid grid-cols-12 items-center mt-2">
                     <div className="col-span-1 font-bold">{index + 1}.</div>
-                    <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                    <div
+                      className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                      onClick={() => handlePendingAccessibilityClick(index)}
+                    >
                       <div className="grid grid-cols-1">
                         <div className="font-bold text-xxs">
                           {clause.chapter}.{clause.clause_no}
@@ -317,10 +505,13 @@ const ModalChecklist = (props) => {
                   {completedAccessibilityCodeCheck.map((clause, index) => (
                     <div className="grid grid-cols-12 items-center mt-2 text-lightgreen">
                       <div className="col-span-1 font-bold">{index + 1}.</div>
-                      <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                      <div
+                        className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                        onClick={() => handleCompletedAccessibilityClick(index)}
+                      >
                         <div className="grid grid-cols-1">
                           <div className="font-bold text-xxs line-through">
-                            {clause.header}
+                            {clause.chapter}.{clause.clause_no}
                           </div>
                           <div className="line-through">{clause.content}</div>
                           <div className="text-xxs">
@@ -346,7 +537,10 @@ const ModalChecklist = (props) => {
                 {pendingBuildingCodeCheck.map((clause, index) => (
                   <div className="grid grid-cols-12 items-center mt-2">
                     <div className="col-span-1 font-bold">{index + 1}.</div>
-                    <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                    <div
+                      className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                      onClick={() => handlePendingBuildingClick(index)}
+                    >
                       <div className="grid grid-cols-1">
                         <div className="font-bold text-xxs">
                           {clause.chapter}.{clause.clause_no}
@@ -364,10 +558,13 @@ const ModalChecklist = (props) => {
                   {completedBuildingCodeCheck.map((clause, index) => (
                     <div className="grid grid-cols-12 items-center mt-2 text-lightgreen">
                       <div className="col-span-1 font-bold">{index + 1}.</div>
-                      <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                      <div
+                        className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                        onClick={() => handleCompletedBuildingClick(index)}
+                      >
                         <div className="grid grid-cols-1">
                           <div className="font-bold text-xxs line-through">
-                            {clause.header}
+                            {clause.chapter}.{clause.clause_no}
                           </div>
                           <div className="line-through">{clause.content}</div>
                           <div className="text-xxs">
@@ -393,7 +590,10 @@ const ModalChecklist = (props) => {
                 {pendingFireCodeCheck.map((clause, index) => (
                   <div className="grid grid-cols-12 items-center mt-2">
                     <div className="col-span-1 font-bold">{index + 1}.</div>
-                    <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                    <div
+                      className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                      onClick={() => handlePendingFireClick(index)}
+                    >
                       <div className="grid grid-cols-1">
                         <div className="font-bold text-xxs">
                           {clause.chapter}.{clause.clause_no}
@@ -419,10 +619,13 @@ const ModalChecklist = (props) => {
                   {completedFireCodeCheck.map((clause, index) => (
                     <div className="grid grid-cols-12 items-center mt-2 text-lightgreen">
                       <div className="col-span-1 font-bold">{index + 1}.</div>
-                      <div className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100">
+                      <div
+                        className="col-span-11 border-1 border-slate-300 rounded-xl p-2 flex flex-row flex-wrap items-center justify-between hover:bg-slate-100"
+                        onClick={() => handleCompletedFireClick(index)}
+                      >
                         <div className="grid grid-cols-1">
                           <div className="font-bold text-xxs line-through">
-                            {clause.header}
+                            {clause.chapter}.{clause.clause_no}
                           </div>
                           <div className="line-through">{clause.content}</div>
                           <div className="text-xxs">
