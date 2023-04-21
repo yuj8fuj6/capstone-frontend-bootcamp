@@ -234,6 +234,76 @@ const Model = () => {
             position={[-400, 0, 20]}
             scale={4.0}
           />
+          <Annotation position={[0, 0, -20]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">SCDF - Fire Code</p>
+                <p className="font-bold">Clause</p>
+                <p>Basement</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[-30, 20, -20]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - GFA Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Entrance canopy not computed in GFA</p>
+              </div>
+              <WarningOutlined />
+              <div className="col-span-5 mt-4">
+                <p className="font-bold">BCA - Accessibility</p>
+                <p className="font-bold">Clause</p>
+                <p>No drastic floor level change</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[-130, 40, -10]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">SCDF - Fire Code</p>
+                <p className="font-bold">Clause</p>
+                <p>Atrium area</p>
+              </div>
+              <WarningOutlined />
+              <div className="col-span-5 mt-4">
+                <p className="font-bold">BCA - Approved Document</p>
+                <p className="font-bold">Clause</p>
+                <p>Glass reflectance - ETTV</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[-200, 40, -10]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Building height</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[-180, 40, -100]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold text-xxs">BCA - Approved Document</p>
+                <p className="font-bold text-xxs">Clause</p>
+                <p>Staircase</p>
+              </div>
+            </div>
+            <div className="text-xs w-[200px] grid grid-cols-6 mt-3">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold text-xxs">SCDF - Fire Code</p>
+                <p className="font-bold text-xxs">Clause</p>
+                <p>Staircase</p>
+              </div>
+            </div>
+          </Annotation>
         </mesh>
       )}
     </>
