@@ -122,10 +122,10 @@ const Model = () => {
       )}
       {modelType === "Residential" && (
         <mesh>
-          <hemisphereLight intensity={0.15} groundColor="black" />
+          <hemisphereLight intensity={0.5} groundColor="black" />
           <pointLight intensity={1} />
           <spotLight
-            position={[-20, 50, 10]}
+            position={[-500, 5000, 500]}
             angle={0.12}
             penumbra={1}
             intensity={1}
@@ -135,26 +135,104 @@ const Model = () => {
           <primitive
             object={houseModel.scene}
             position={[0, -3.25, -1.5]}
-            scale={8.0}
+            scale={15.0}
           />
+          <Annotation position={[-10, 0, -10]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Boundary wall height</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[90, -15, -60]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Green buffer/ road reserve setback</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[90, 70, 200]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Envelope control</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[170, 50, 120]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - GFA Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Balcony included in GFA tabulation</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[10, 30, 150]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">URA - GFA Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Entrance canopy not included in GFA tabulation</p>
+              </div>
+              <WarningOutlined />
+              <div className="col-span-5 mt-3">
+                <p className="font-bold">URA - Handbook</p>
+                <p className="font-bold">Clause</p>
+                <p>Roof setback</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[100, 30, 140]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">BCA - Approved Document</p>
+                <p className="font-bold">Clause</p>
+                <p>Safety glass at height</p>
+                <p className="font-bold">Clause</p>
+                <p>Glass reflectance</p>
+              </div>
+            </div>
+          </Annotation>
+          <Annotation position={[170, 70, 200]}>
+            <div className="text-xs w-[200px] grid grid-cols-6">
+              <WarningOutlined />
+              <div className="col-span-5">
+                <p className="font-bold">BCA - Approved Document</p>
+                <p className="font-bold">Clause</p>
+                <p>Roof ETTV value</p>
+              </div>
+            </div>
+          </Annotation>
         </mesh>
       )}
       {modelType === "Recreation" && (
         <mesh>
-          <hemisphereLight intensity={0.15} groundColor="black" />
+          <hemisphereLight intensity={0.2} groundColor="black" />
           <pointLight intensity={1} />
           <spotLight
-            position={[-20, 50, 10]}
+            position={[-500, 5000, 500]}
             angle={0.12}
             penumbra={1}
-            intensity={1}
+            intensity={3}
             castShadow
             shadow-mapSize={1024}
           />
           <primitive
             object={communityModel.scene}
-            position={[0, -3.25, -1.5]}
-            scale={2.0}
+            position={[-400, 0, 20]}
+            scale={4.0}
           />
         </mesh>
       )}
