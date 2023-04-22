@@ -7,6 +7,7 @@ import ModalComment from "./ModalComment";
 import { BsArrowUp, BsChatLeft, BsCheckCircle } from "react-icons/bs";
 import ReactTimeAgo from "react-time-ago";
 import { CommentContext } from "../contexts/CommentContext";
+import { ModelContext } from "../contexts/ModelContext";
 import { makeOption } from "./Option";
 import { Modal } from "antd";
 
@@ -120,6 +121,9 @@ const CommentList = (props) => {
 
   const { allPostData, setAllPostData, threadCount, setThreadCount } =
     useContext(CommentContext);
+
+  const { modelType, setModelType, showAnnotations, setShowAnnotations } =
+    useContext(ModelContext);
 
   const postFormValidation = Yup.object().shape({
     content: Yup.string().required("Please enter the required field!"),
@@ -250,6 +254,7 @@ const CommentList = (props) => {
             onClick={() => {
               setOpenModal(true);
               setPostID(post.id);
+              setShowAnnotations(false); 
             }}
             key={index}
             className="bg-white drop-shadow-md rounded-xl hover:bg-lightgreen grid grid-cols-6 p-3 "

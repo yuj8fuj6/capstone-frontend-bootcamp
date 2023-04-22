@@ -5,6 +5,7 @@ import Button from "./Button";
 import ModalChecklist from "./ModalChecklist";
 import { UserContext } from "../contexts/UserContext";
 import { ChecklistContext } from "../contexts/ChecklistContext";
+import { ModelContext } from "../contexts/ModelContext";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -50,6 +51,8 @@ const Checklist = () => {
   } = useContext(ChecklistContext);
 
   const { userData, setUserData } = useContext(UserContext);
+  const { modelType, setModelType, showAnnotations, setShowAnnotations } =
+    useContext(ModelContext);
 
   const omit = require("lodash.omit");
 
@@ -490,7 +493,14 @@ const Checklist = () => {
           items={completedItems}
         />
       </ConfigProvider>
-      <Button onClick={() => setOpenModal(true)}>Expand</Button>
+      <Button
+        onClick={() => {
+          setOpenModal(true);
+          setShowAnnotations(false);
+        }}
+      >
+        Expand
+      </Button>
       <ModalChecklist openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   );

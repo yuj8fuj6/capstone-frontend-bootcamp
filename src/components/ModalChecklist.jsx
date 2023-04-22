@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ChecklistContext } from "../contexts/ChecklistContext";
 import { UserContext } from "../contexts/UserContext";
+import { ModelContext } from "../contexts/ModelContext";
 import { BsCheck2Square, BsSquare } from "react-icons/bs";
 
 import { BACKEND_URL } from "../constants";
@@ -38,6 +39,8 @@ const ModalChecklist = (props) => {
     setCompletedFireCodeCheck,
   } = useContext(ChecklistContext);
   const { userData, setUserData } = useContext(UserContext);
+  const { modelType, setModelType, showAnnotations, setShowAnnotations } =
+    useContext(ModelContext);
 
   const omit = require("lodash.omit");
 
@@ -327,11 +330,17 @@ const ModalChecklist = (props) => {
         open={openModal}
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
-        onOk={() => setOpenModal(false)}
-        onCancel={() => setOpenModal(false)}
+        onOk={() => {
+          setOpenModal(false);
+          setShowAnnotations(true);
+        }}
+        onCancel={() => {
+          setOpenModal(false);
+          setShowAnnotations(true);
+        }}
         centered={true}
         width="1200px"
-        className="text-darkgreen"
+        className="text-darkgreen bg-white"
       >
         <div className="text-base font-bold text-left">Checklist</div>
         <div className="grid grid-cols-3 gap-6 mt-2">

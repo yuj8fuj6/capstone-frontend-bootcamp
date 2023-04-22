@@ -4,6 +4,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CommentContext } from "../contexts/CommentContext";
+import { ModelContext } from "../contexts/ModelContext";
 import {
   BsArrowUpCircle,
   BsArrowDownCircle,
@@ -24,6 +25,8 @@ const ModalComment = (props) => {
   const { isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { allPostData, setAllPostData, threadCount, setThreadCount } =
     useContext(CommentContext);
+  const { modelType, setModelType, showAnnotations, setShowAnnotations } =
+    useContext(ModelContext);
 
   const [allThreads, setAllThreads] = useState([]);
   const [stateChange, setStateChange] = useState(true);
@@ -144,9 +147,13 @@ const ModalComment = (props) => {
         open={openModal}
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
-        onCancel={() => setOpenModal(false)}
+        onCancel={() => {
+          setOpenModal(false);
+          setShowAnnotations(true);
+        }}
         centered={true}
         width="700px"
+        className="bg-white"
       >
         <div className="grid grid-cols-1 gap-4">
           {currentPost && (
