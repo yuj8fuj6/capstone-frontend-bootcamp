@@ -4,7 +4,7 @@ import "./Model.css";
 
 const Annotation = (props) => {
   return (
-    <Html {...props} distanceFactor={100}>
+    <Html {...props} distanceFactor={80}>
       <div className="content">{props.children}</div>
     </Html>
   );

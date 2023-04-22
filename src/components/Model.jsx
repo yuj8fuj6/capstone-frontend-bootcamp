@@ -41,13 +41,28 @@ const Model = () => {
           />
           {showAnnotations && (
             <>
-              <Annotation position={[-20, 5, -30]}>
+              <Annotation position={[-15, 5, -30]}>
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold text-xxs">URA - Handbook</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Green buffer/ road reserve</p>
+                    <p className="font-bold text-xxs">
+                      URA - Business 2 (Industrial) Handbook
+                    </p>
+                    <p className="font-bold text-xxs">
+                      Boundary Setback Requirements
+                    </p>
+                    <p className="text-xxs text-justify leading-tight">
+                      To ensure adequate Road Buffer (inclusive of Green Buffer)
+                      depending on the public road category.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Non-Residential/B2/Setback"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -56,8 +71,25 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold text-xxs">SCDF - Fire Code</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Fire command center</p>
+                    <p className="font-bold text-xxs">Clause 8.2.4</p>
+                    <p className="text-xxs text-justify leading-tight">
+                      To provide the Fire Command Centre (FCC) in any building
+                      (exluding PG I and II buildings), which requires any of
+                      the following installations:
+                    </p>
+                    <ol type="1" className="text-xxs">
+                      <li>1. Fire Lift</li>
+                      <li>2. Emergency voice communication system</li>
+                      <li>3. Engineered smoke control system</li>
+                    </ol>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-8-emergency-lighting-voice-communicarion-systems/clause-8.2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -66,8 +98,20 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold text-xxs">SCDF - Fire Code</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Unprotected opening calculation</p>
+                    <p className="font-bold text-xxs">Clause 3.5.3</p>
+                    <p className="text-justify leading-tight">
+                      To ensure compliance with the permitted limits of the
+                      extent of unprotected openings in any external side of a
+                      building.
+                    </p>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-3-structural-fire-precuations/clause-3.5"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -75,9 +119,24 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold text-xxs">URA - Handbook</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Peripheral planting</p>
+                    <p className="font-bold text-xxs">
+                      URA - Business 2 (Industrial) Handbook
+                    </p>
+                    <p className="font-bold text-xxs">
+                      Boundary Setback Requirements
+                    </p>
+                    <p className="text-xxs text-justify leading-tight">
+                      To ensure adequate common boundary setback with
+                      non-industrial development.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Non-Residential/B2/Setback"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -86,10 +145,19 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold text-xxs">
-                      BCA - Code in Accessibility
+                      BCA - Code on Accessibility
                     </p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Sheltered no floor level change</p>
+                    <p className="font-bold text-xxs">Clause 3.3</p>
+                    <p className="text-xxs text-justify leading-tight">
+                      At least one alighting and boarding point to be sheltered.
+                    </p>
+                    <p className="text-xxs text-justify leading-tight mt-2">
+                      Proper provisions to be made when there is a level
+                      difference at the alighting and boarding point.
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 18 of Code Document
+                    </p>
                   </div>
                 </div>
               </Annotation>
@@ -100,16 +168,34 @@ const Model = () => {
                     <p className="font-bold text-xxs">
                       BCA - Approved Document
                     </p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Staircase</p>
+                    <p className="font-bold text-xxs">Clause E.3.3</p>
+                    <p className="text-xxs text-justify leading-tight">
+                      The clear width of every staircase shall not be less than
+                      1000 mm.
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 23 of Code Document
+                    </p>
                   </div>
                 </div>
                 <div className="text-xs w-[200px] grid grid-cols-6 mt-3">
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold text-xxs">SCDF - Fire Code</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Staircase</p>
+                    <p className="font-bold text-xxs">Clause 2.3.3.b</p>
+                    <p className="text-xxs text-justify leading-tight">
+                      No unprotected opening, or combustible material/
+                      construction within 3m horizontally or vertically or
+                      adjacent or facing the external exit staricase.
+                    </p>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-2-means-of-escape/clause-2.3"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -118,8 +204,19 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold text-xxs">SCDF - Fire Code</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Fire Engine Accessway</p>
+                    <p className="font-bold text-xxs">Clause 4.2.2</p>
+                    <p className="text-xxs text-justify leading-tight">
+                      A fire engine accessway shall be provided for firefighting
+                      appliances.
+                    </p>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-4---site-planning-external-firefighting-provision/clause-4.2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -150,9 +247,23 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold">URA - Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Boundary wall height</p>
+                    <p className="font-bold">
+                      URA - Bungalows or Detached Houses Handbook
+                    </p>
+                    <p className="font-bold">
+                      Retaining and Boundary Walls
+                    </p>
+                    <p className="text-justify leading-tight">
+                      Boundary walls shall not exceed 1.8m high.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Residential/Bungalows/Retaining-Walls"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -160,9 +271,25 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold">URA - Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Green buffer/ road reserve setback</p>
+                    <p className="font-bold">
+                      URA - Bungalows or Detached Houses Handbook
+                    </p>
+                    <p className="font-bold">
+                      Building Setback from Boundary
+                    </p>
+                    <p className="text-justify leading-tight">
+                      Depending on the public road category, to comply with the
+                      road buffer and green buffer. For Category 5 roads, width
+                      of road buffer (no need for green buffer) to be 7.5m.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Residential/Bungalows/Setbacks-from-boundaries"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -170,9 +297,25 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold">URA - Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Envelope control</p>
+                    <p className="font-bold">
+                      URA - Bungalows or Detached Houses Handbook
+                    </p>
+                    <p className="font-bold">
+                      Envelope Control Guidelines
+                    </p>
+                    <p className="text-justify leading-tight">
+                      All landed housing shall follow the envelope control
+                      guidelines which define an allowable building envelope
+                      based on storey height and building setbacks.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Residential/Bungalows/EC"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -180,9 +323,19 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold">URA - GFA Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Balcony included in GFA tabulation</p>
+                    <p className="font-bold text-xxs">URA - GFA Handbook</p>
+                    <p className="font-bold text-xxs">Balconies</p>
+                    <p className="text-xxs text-justify leading-tight">
+                      Balconies are included as GFA.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/gross-floor-area/GFA/Balconies"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -191,8 +344,19 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold">URA - GFA Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Entrance canopy not included in GFA tabulation</p>
+                    <p className="font-bold">Entrance Canopy</p>
+                    <p className="text-justify leading-tight">
+                      For every development, only one entrance canopy is
+                      excluded from GFA.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/gross-floor-area/GFA/EntranceCanopy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                   <WarningOutlined />
                   <div className="col-span-5 mt-3">
