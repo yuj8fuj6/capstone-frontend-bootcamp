@@ -7,6 +7,7 @@ import axios from "axios";
 import { makeOption } from "./Option";
 import { Modal } from "antd";
 import { BsCheckCircle } from "react-icons/bs";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { BACKEND_URL } from "../constants";
 
@@ -75,6 +76,8 @@ const usageOptions = [
   },
 ];
 
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 const BuildingForm = () => {
   const { userData, setUserData } = useContext(UserContext);
   const {
@@ -104,6 +107,8 @@ const BuildingForm = () => {
   } = useContext(ChecklistContext);
   const [stateChange, setStateChange] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   const debounce = require("lodash.debounce");
 

@@ -13,6 +13,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from "./Button";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { BACKEND_URL } from "../constants";
 
@@ -44,8 +45,12 @@ const residentOptions = [
   { value: "Foreigner", label: "Foreigner" },
 ];
 
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 const ProfileForm = () => {
   const { userData, setUserData } = useContext(UserContext);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   const [currentUser, setCurrentUser] = useState({
     name: userData.name,

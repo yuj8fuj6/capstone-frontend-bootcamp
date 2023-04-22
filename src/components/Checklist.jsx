@@ -5,7 +5,9 @@ import Button from "./Button";
 import ModalChecklist from "./ModalChecklist";
 import { UserContext } from "../contexts/UserContext";
 import { ChecklistContext } from "../contexts/ChecklistContext";
+import { ModelContext } from "../contexts/ModelContext";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { BACKEND_URL } from "../constants";
 
@@ -18,6 +20,8 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
+
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 
 const Checklist = () => {
   const {
@@ -47,6 +51,8 @@ const Checklist = () => {
   } = useContext(ChecklistContext);
 
   const { userData, setUserData } = useContext(UserContext);
+  const { modelType, setModelType, showAnnotations, setShowAnnotations } =
+    useContext(ModelContext);
 
   const omit = require("lodash.omit");
 
@@ -57,6 +63,8 @@ const Checklist = () => {
     useState([]);
   const [pendingBuildingCodeCheck, setPendingBuildingCodeCheck] = useState([]);
   const [pendingFireCodeCheck, setPendingFireCodeCheck] = useState([]);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   // Use effect for pending GFA code
   useEffect(() => {
@@ -340,6 +348,106 @@ const Checklist = () => {
           console.log(err);
         });
     }
+
+    // Uncheck clauses
+
+    if (includesAll(e.keyPath, ["sub9", "sub10"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkGfaCode`, {
+          gfa_code_id: completedGfaCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedGfaCodeCheck(
+            completedGfaCodeCheck.filter(
+              (el) => el.id !== completedGfaCodeCheck[e.keyPath[0]].id,
+            ),
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub9", "sub11"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkPlanningCode`, {
+          planning_code_id: completedPlanningCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedPlanningCodeCheck(
+            completedPlanningCodeCheck.filter(
+              (el) => el.id !== completedPlanningCodeCheck[e.keyPath[0]].id,
+            ),
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub12", "sub13"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkAccessibilityCode`, {
+          accessibility_code_id:
+            completedAccessibilityCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedAccessibilityCodeCheck(
+            completedAccessibilityCodeCheck.filter(
+              (el) =>
+                el.id !== completedAccessibilityCodeCheck[e.keyPath[0]].id,
+            ),
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub12", "sub14"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkBuildingCode`, {
+          building_code_id: completedBuildingCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedBuildingCodeCheck(
+            completedBuildingCodeCheck.filter(
+              (el) => el.id !== completedBuildingCodeCheck[e.keyPath[0]].id,
+            ),
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (includesAll(e.keyPath, ["sub15", "sub16"])) {
+      await axios
+        .post(`${BACKEND_URL}/checklists/checkFireCode`, {
+          fire_code_id: completedFireCodeCheck[e.keyPath[0]].id,
+          check: true,
+          building_id: allBuildings[0].id,
+          user_id: userData.id,
+        })
+        .then((res) => {
+          setCompletedFireCodeCheck(
+            completedFireCodeCheck.filter(
+              (el) => el.id !== completedFireCodeCheck[e.keyPath[0]].id,
+            ),
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -385,7 +493,14 @@ const Checklist = () => {
           items={completedItems}
         />
       </ConfigProvider>
-      <Button onClick={() => setOpenModal(true)}>Expand</Button>
+      <Button
+        onClick={() => {
+          setOpenModal(true);
+          setShowAnnotations(false);
+        }}
+      >
+        Expand
+      </Button>
       <ModalChecklist openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   );

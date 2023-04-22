@@ -7,6 +7,7 @@ import ModalComment from "./ModalComment";
 import { BsArrowUp, BsChatLeft, BsCheckCircle } from "react-icons/bs";
 import ReactTimeAgo from "react-time-ago";
 import { CommentContext } from "../contexts/CommentContext";
+import { ModelContext } from "../contexts/ModelContext";
 import { makeOption } from "./Option";
 import { Modal } from "antd";
 
@@ -107,9 +108,11 @@ const codeOptions = [
   },
 ];
 
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 const CommentList = (props) => {
   const { userID } = props;
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   const [openModal, setOpenModal] = useState(false);
   const [openPostModal, setOpenPostModal] = useState(false);
@@ -118,6 +121,9 @@ const CommentList = (props) => {
 
   const { allPostData, setAllPostData, threadCount, setThreadCount } =
     useContext(CommentContext);
+
+  const { modelType, setModelType, showAnnotations, setShowAnnotations } =
+    useContext(ModelContext);
 
   const postFormValidation = Yup.object().shape({
     content: Yup.string().required("Please enter the required field!"),
@@ -248,6 +254,7 @@ const CommentList = (props) => {
             onClick={() => {
               setOpenModal(true);
               setPostID(post.id);
+              setShowAnnotations(false); 
             }}
             key={index}
             className="bg-white drop-shadow-md rounded-xl hover:bg-lightgreen grid grid-cols-6 p-3 "
