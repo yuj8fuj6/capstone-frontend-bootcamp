@@ -250,9 +250,7 @@ const Model = () => {
                     <p className="font-bold">
                       URA - Bungalows or Detached Houses Handbook
                     </p>
-                    <p className="font-bold">
-                      Retaining and Boundary Walls
-                    </p>
+                    <p className="font-bold">Retaining and Boundary Walls</p>
                     <p className="text-justify leading-tight">
                       Boundary walls shall not exceed 1.8m high.
                     </p>
@@ -260,7 +258,7 @@ const Model = () => {
                       href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Residential/Bungalows/Retaining-Walls"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline hover:text-blue-800"
+                      className="underline hover:text-blue-800 text-xxs"
                     >
                       Go to URA Website!
                     </a>
@@ -274,9 +272,7 @@ const Model = () => {
                     <p className="font-bold">
                       URA - Bungalows or Detached Houses Handbook
                     </p>
-                    <p className="font-bold">
-                      Building Setback from Boundary
-                    </p>
+                    <p className="font-bold">Building Setback from Boundary</p>
                     <p className="text-justify leading-tight">
                       Depending on the public road category, to comply with the
                       road buffer and green buffer. For Category 5 roads, width
@@ -300,9 +296,7 @@ const Model = () => {
                     <p className="font-bold">
                       URA - Bungalows or Detached Houses Handbook
                     </p>
-                    <p className="font-bold">
-                      Envelope Control Guidelines
-                    </p>
+                    <p className="font-bold">Envelope Control Guidelines</p>
                     <p className="text-justify leading-tight">
                       All landed housing shall follow the envelope control
                       guidelines which define an allowable building envelope
@@ -323,9 +317,9 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold text-xxs">URA - GFA Handbook</p>
-                    <p className="font-bold text-xxs">Balconies</p>
-                    <p className="text-xxs text-justify leading-tight">
+                    <p className="font-bold">URA - GFA Handbook</p>
+                    <p className="font-bold">Balconies</p>
+                    <p className="text-justify leading-tight">
                       Balconies are included as GFA.
                     </p>
                     <a
@@ -353,16 +347,30 @@ const Model = () => {
                       href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/gross-floor-area/GFA/EntranceCanopy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline hover:text-blue-800"
+                      className="underline hover:text-blue-800 text-xxs"
                     >
                       Go to URA Website!
                     </a>
                   </div>
                   <WarningOutlined />
                   <div className="col-span-5 mt-3">
-                    <p className="font-bold">URA - Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Roof setback</p>
+                    <p className="font-bold">
+                      URA - Bungalows or Detached Houses Handbook
+                    </p>
+                    <p className="font-bold">Building Setback from Boundary</p>
+                    <p className="text-justify leading-tight">
+                      Set back for roof eaves (including car porch roof eaves)
+                      to be 1.6 m for GCBA, and 1 m for outside GCBA, unless the
+                      plot abuts a GCBA.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Residential/Bungalows/Setbacks-from-boundaries"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -371,10 +379,24 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold">BCA - Approved Document</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Safety glass at height</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Glass reflectance</p>
+                    <p className="font-bold">Clause N.3.2</p>
+                    <p className="text-justify leading-tight">
+                      Float (or annealed) glass, heat strengthened glass,
+                      laminated glass or other type of glass that is not prone
+                      to spontaneous breakage shall be used as the glass
+                      material at height (2.4m or more).
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 51 of Code Document
+                    </p>
+                    <p className="font-bold mt-2">Clause P.3.2</p>
+                    <p className="text-justify leading-tight">
+                      Glass for building works shall not have a daylight
+                      reflectance not exceeding 20%.
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 54 of Code Document
+                    </p>
                   </div>
                 </div>
               </Annotation>
@@ -383,8 +405,17 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold">BCA - Approved Document</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Roof ETTV value</p>
+                    <p className="font-bold">Clause I.3.2.5</p>
+                    <p className="text-justify leading-tight">
+                      For roofs with skylight, the roof thermal transfer value
+                      shall not exceed 50 W/m2. For roofs without skylight, the
+                      average thermal transmittance (U-value) for the gross area
+                      of the roof shall not exceed limits prescribed in the code
+                      for corresponding weight groups.
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 41 of Code Document
+                    </p>
                   </div>
                 </div>
               </Annotation>
@@ -411,13 +442,25 @@ const Model = () => {
           />
           {showAnnotations && (
             <>
-              <Annotation position={[0, 0, -20]}>
+              <Annotation position={[0, 0, -60]}>
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold">SCDF - Fire Code</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Basement</p>
+                    <p className="font-bold">Clause 6.4.1.d</p>
+                    <p className="text-justify leading-tight">
+                      All basement storeys irrespective of compartment size,
+                      except for those used as PG I or II, shall be provided
+                      with an automatic sprinkler system.
+                    </p>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-6-firefighting-systems/clause-6.4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -426,14 +469,36 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold">URA - GFA Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Entrance canopy not computed in GFA</p>
+                    <p className="font-bold">Entrance Canopy</p>
+                    <p className="text-justify leading-tight">
+                      For every development, only one entrance canopy is
+                      excluded from GFA.
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/gross-floor-area/GFA/EntranceCanopy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                   <WarningOutlined />
-                  <div className="col-span-5 mt-4">
-                    <p className="font-bold">BCA - Accessibility</p>
-                    <p className="font-bold">Clause</p>
-                    <p>No drastic floor level change</p>
+                  <div className="col-span-5">
+                    <p className="font-bold mt-3">
+                      BCA - Code on Accessibility
+                    </p>
+                    <p className="font-bold">Clause 3.3</p>
+                    <p className="text-justify leading-tight">
+                      At least one alighting and boarding point to be sheltered.
+                    </p>
+                    <p className="text-justify leading-tight mt-2">
+                      Proper provisions to be made when there is a level
+                      difference at the alighting and boarding point.
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 18 of Code Document
+                    </p>
                   </div>
                 </div>
               </Annotation>
@@ -442,14 +507,33 @@ const Model = () => {
                   <WarningOutlined />
                   <div className="col-span-5">
                     <p className="font-bold">SCDF - Fire Code</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Atrium area</p>
+                    <p className="font-bold">Clause 6.4.1.e</p>
+                    <p className="text-justify leading-tight">
+                      A fire sprinkler system shall be provided for an atrium
+                      space not exceeding 18m in height. For an atrium with
+                      ceiling height exceeding 18m (in whole or in part), water
+                      monitor, deluge and/or extended-throw sprinkler systems
+                      shall be provided to cover the entire atrium space.
+                    </p>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-6-firefighting-systems/clause-6.4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                   <WarningOutlined />
                   <div className="col-span-5 mt-4">
-                    <p className="font-bold">BCA - Approved Document</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Glass reflectance - ETTV</p>
+                    <p className="font-bold mt-2">Clause P.3.2</p>
+                    <p className="text-justify leading-tight">
+                      Glass for building works shall not have a daylight
+                      reflectance not exceeding 20%.
+                    </p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 54 of Code Document
+                    </p>
                   </div>
                 </div>
               </Annotation>
@@ -457,9 +541,25 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold">URA - Handbook</p>
-                    <p className="font-bold">Clause</p>
-                    <p>Building height</p>
+                    <p className="font-bold">
+                      URA - Sports and Recreation Handbook
+                    </p>
+                    <p className="font-bold">Building Height</p>
+                    <p className="text-justify leading-tight">
+                      The overall building height based on Singapore Height
+                      Datum (SHD) is subject to compliance with the technical
+                      height controls of the relevant agencies such as Civil
+                      Aviation Authority of Singapore (CAAS) and the Defence
+                      Science and Technology Agency (DSTA).
+                    </p>
+                    <a
+                      href="https://www.ura.gov.sg/Corporate/Guidelines/Development-Control/Non-Residential/SR/Height"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to URA Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
@@ -467,19 +567,35 @@ const Model = () => {
                 <div className="text-xs w-[200px] grid grid-cols-6">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold text-xxs">
-                      BCA - Approved Document
+                    <p className="font-bold">BCA - Approved Document</p>
+                    <p className="font-bold">Clause E.3.3</p>
+                    <p className="text-justify leading-tight">
+                      The clear width of every staircase shall not be less than
+                      1000 mm.
                     </p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Staircase</p>
+                    <p className="text-xxs mt-2 underline">
+                      Pg 23 of Code Document
+                    </p>
                   </div>
                 </div>
                 <div className="text-xs w-[200px] grid grid-cols-6 mt-3">
                   <WarningOutlined />
                   <div className="col-span-5">
-                    <p className="font-bold text-xxs">SCDF - Fire Code</p>
-                    <p className="font-bold text-xxs">Clause</p>
-                    <p>Staircase</p>
+                    <p className="font-bold">SCDF - Fire Code</p>
+                    <p className="font-bold">Clause 2.3.3.b</p>
+                    <p className="text-justify leading-tight">
+                      No unprotected opening, or combustible material/
+                      construction within 3m horizontally or vertically or
+                      adjacent or facing the external exit staricase.
+                    </p>
+                    <a
+                      href="https://www.scdf.gov.sg/firecode/table-of-content/chapter-2-means-of-escape/clause-2.3"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-blue-800 text-xxs"
+                    >
+                      Go to SCDF Website!
+                    </a>
                   </div>
                 </div>
               </Annotation>
