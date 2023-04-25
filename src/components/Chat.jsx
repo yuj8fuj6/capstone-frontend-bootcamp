@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import "../main.scss";
 import {
@@ -11,8 +11,12 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import "./Chat.css";
 import axios from "axios";
+import { Avatar } from "antd";
+import { UserContext } from "../contexts/UserContext";
 
 const Chat = () => {
+  const { userData, setUserData } = useContext(UserContext);
+
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -99,11 +103,24 @@ const Chat = () => {
                 // className="w-full h-[1000px] overscroll-auto"
               >
                 {messages.map((message, index) => (
-                  <Message
-                    model={message}
-                    key={index}
-                    className="text-left text-xs"
-                  />
+                  <div className="flex flex-row flex-wrap items-center">
+                    {message.sender === "chatGPT" && (
+                      <Avatar
+                        src={
+                          "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/chatgpt-icon.png"
+                        }
+                        name={"chatGPT"}
+                      />
+                    )}
+                    <Message
+                      model={message}
+                      key={index}
+                      className="text-left text-xs w-3/4"
+                    />
+                    {message.sender === "user" && (
+                      <Avatar src={userData.photo_url} name={userData.name} />
+                    )}
+                  </div>
                 ))}
               </MessageList>
               <MessageInput
