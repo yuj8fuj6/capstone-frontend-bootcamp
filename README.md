@@ -35,31 +35,58 @@ www.google.com
  <h2> Features </h2>
   <h4> 1. Authentication </h4>
 Users are authenticated either via their emails or google accounts. 
- <br/>
+ <br/> <br/>
+ 
+ ![Gif - Part 2](https://user-images.githubusercontent.com/105143904/234800303-96a89973-730c-430b-b1fe-19dee4cf9a3c.gif)
+ 
   <h4> 2. 3D Model Display </h4>
 Users can view reference 3D models of different building types with annotations to understand the contexts of various regulatory clauses with visual aids. 
- <br/>
+ <br/> <br/>
+ 
+![Gif - Part 3](https://user-images.githubusercontent.com/105143904/234802074-469222bc-c7ac-48ff-a796-cc71367f9884.gif)
+
   <h4> 3. Checklist </h4>
-By entering the details of a building profile, users can generate checklists of relevant regulatory clauses that pertains to the building profile, and monitor the progress on complying with the clauses.  
-  <br/>![Gif - Part 1](https://user-images.githubusercontent.com/105143904/234798516-0f093f83-f431-41c2-a8eb-48497641061b.gif)
-  <br/>
+By entering the details of a building profile, users can generate checklists of relevant regulatory clauses that pertains to the building profile, and monitor the progress on complying with the clauses. 
+ <br/> <br/>
+ 
+![Gif - Part 1](https://user-images.githubusercontent.com/105143904/234799185-b45ff128-3d06-47b6-b9cb-c49a33a2c4b3.gif)
+
   <h4> 4. Chat Bot </h4>
 A chat bot integrated with ChatGPT provides a platform for the users to ask ad-hoc questions about any regulatory clause that they may need urgent clarification for.  
-  <br/>
+  <br/> <br/>
+ 
+ ![Git - Part 4](https://user-images.githubusercontent.com/105143904/234805371-69418cd6-b557-4817-abd0-f3a15d73be06.gif)
+ 
   <h4> 5. Forum </h4>
 The forums provide users with a medium to form a community to assist each other on the understanding of any regulatory clause that they may have questions about. Officers from the technical agencies may also use this platform to answer the users' queries. 
-  <br/>
+  <br/> <br/>
+ 
+ ![Git - Part 5](https://user-images.githubusercontent.com/105143904/234806786-aa93bfe7-a0b6-45d9-99ff-0954f6a6c61a.gif)
+
   <h4> 6. Profile </h4>
 Users can update their personal details and these details would be propagated to other components of the app. 
-  <br/>
+  <br/> <br/>
+ 
+ ![Git - Part 6](https://user-images.githubusercontent.com/105143904/234807640-e3bcff72-4e39-42cc-9f06-a19e16730e07.gif)
+
   <h4> 7. Support </h4>
 Users can enter the relevant queries in the contact form and the submission of the form would send an email to the system administrators or officers from the relevant technical agencies. 
-  <br/>
+  <br/> <br/>
+ 
+ ![Gif - Part 7](https://user-images.githubusercontent.com/105143904/234808566-212ef2ad-b543-4487-90ee-09e3220cf6da.gif)
+
   <h4> 8. Circulars </h4>
 Users can view a summary of the lists of the latest circulars from different technical agencies to be up to date on the newest regulations. 
-  <br/>
+  <br/> <br/>
+ 
+ ![Gif - Part 8](https://user-images.githubusercontent.com/105143904/234809315-c03ddbda-d876-44e1-98c3-fe2849b90b42.gif)
+
   <h4> 8. Map </h4>
 By entering the postal code of any address, users will be able to obtain the planning parameters for the searched address. 
+  <br/> <br/>
+ 
+ ![Gif - Part 9](https://user-images.githubusercontent.com/105143904/234810105-e241aedc-d367-4854-9902-a90cdf61f2ee.gif)
+ 
 </div>
 
 <div id="built-with">
