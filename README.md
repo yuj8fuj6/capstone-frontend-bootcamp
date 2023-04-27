@@ -41,6 +41,7 @@ Users can view reference 3D models of different building types with annotations 
  <br/>
   <h4> 3. Checklist </h4>
 By entering the details of a building profile, users can generate checklists of relevant regulatory clauses that pertains to the building profile, and monitor the progress on complying with the clauses.  
+  <br/>![Gif - Part 1](https://user-images.githubusercontent.com/105143904/234798516-0f093f83-f431-41c2-a8eb-48497641061b.gif)
   <br/>
   <h4> 4. Chat Bot </h4>
 A chat bot integrated with ChatGPT provides a platform for the users to ask ad-hoc questions about any regulatory clause that they may need urgent clarification for.  
