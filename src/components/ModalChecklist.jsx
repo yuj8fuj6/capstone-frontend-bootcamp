@@ -611,7 +611,7 @@ const ModalChecklist = (props) => {
                         <div className="text-xxs">
                           Ref. Url:
                           <a
-                            href={`https://${clause.url}`}
+                            href={`${clause.url}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="underline"
@@ -640,7 +640,7 @@ const ModalChecklist = (props) => {
                           <div className="text-xxs">
                             Ref. Url:
                             <a
-                              href={`https://${clause.url}`}
+                              href={`${clause.url}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="underline"
