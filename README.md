@@ -23,7 +23,7 @@ Kaibo is an app that serves as an assistant to architects, helping architects to
  <br/> <br/>
 It will provide checklists for monitoring compliances with regulations from different technical agencies, provide an interactive 3D display for architects to intuitively understand the context of the regulation, and answer any ad-hoc questions regarding regulations that architects may have - i.e. questions that the authorities cannot give a clear answer for quickly. 
  <br/> <br/>
-A community of architects will be created over this platform - i.e. asking their questions via community forums, under the guidance of officers from the different technical agencies. 
+A community of architects will be engendered in this platform - i.e. architects will have a platform to ask their questions, under the guidance of officers from the different technical agencies. 
 </div>
 
 <div id="website">
@@ -107,9 +107,16 @@ By entering the postal code of any address, users will be able to obtain the pla
 
 <div id="rationale">
  <h2> Rationale for Technologies </h2>
-It will provide checklists for monitoring compliances with regulations from different technical agencies, provide an interactive 3D display for architects to intuitively understand the context of the regulation, and answer any ad-hoc questions regarding regulations that architects may have - i.e. questions that the authorities cannot give a clear answer for quickly. 
- <br/> <br/>
-A community of architects will be created over this platform - i.e. asking their questions via community forums, under the guidance of officers from the different technical agencies. 
+ <h3> Three.js </h3>
+Three.js, along with React Three Fiber and React Three/ Drei, were used to render and visualize the 3D models. These libraries tailored to React allow 3D models to be scalable, rotatable, zoomable, and annotatable. 
+ <h3> Cheerio.js </h3>
+This library/ npm package allows easy real-time web scraping of target sites. 
+ <h3> Sequelize/ PostgreSQL </h3>
+A SQL database was used, due to the complexity of the datasets and the multiple relations that each dataset had to have with the other datasets. With relations made via multiple junction tables, data can be queried easily in the desired format. 
+ <br /> <br />
+ 
+ ![DB Schema - Capstone - Project 4_Page_2](https://user-images.githubusercontent.com/105143904/234817825-556df4d4-e613-4a4f-9762-e0d8eff40f30.png)
+
 </div>
 
 <div id="repo-links">
@@ -122,20 +129,48 @@ A community of architects will be created over this platform - i.e. asking their
 
 <div id="prerequisites">
  <h2> Pre-Requisites </h2>
-In the project directory, you can run:
+In order to run this application, you will need to install PostgreSQL and Sequelize in your terminal. 
+ <br /> <br />
+You will need to obtain the following APIs and include the keys in the .env files for the frontend and backend repos: - 
+ <br /> <br />
+ <ul>
+  <li>Auth0</li>
+  <li>Formspree</li>
+  <li>Firebase</li>
+  <li>ChatGPT</li>
+ </ul>
+ Refer to the .env sample files for the desired formats. 
+ <br /> <br />
+3D models are not included in these repositories, hence you will have to obtain your own 3D models in .glb format and place them in the public - "models" folder.  
 </div>
 
 <div id="installation">
  <h2> Installation </h2>
-In the project directory, you can run:
+ <h3>`npm i`</h3>
+
+Once you have forked both the frontend and backend repos, run "npm i" in the respective terminals to download all the relevant dependencies. 
+ 
+ <h3>`npx sequelize db:migrate`</h3>
+
+Create a new database in your PostgreSQL terminal, and run "npx sequelize db:migrate" in the backend repo directory in the backend terminal to migrate the relevant tables. 
+ 
+ <h3>`npx sequelize db:seed:all`</h3>
+
+Once all the tables have been migrated successfully, run "npx sequelize db:seed:all" in the backend repo directory in the backend terminal to seed all seeded data from the seeded files. 
+
 </div>
 
 <div id="start">
  <h2> Starting the Application </h2>
  <h3>`npm start`</h3>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Run "npm start" for both frontend and backend repos in separate terminals. 
+ 
+The backend server will run in [http://localhost:3000](http://localhost:3000), while the frontend display will run in [http://localhost:3001](http://localhost:3001). 
+ 
+ <h3>`node webscraper.js`</h3>
+
+Run "node webscraper.js" in the backend repo directory in a separate backend terminal to run the web scrapper for the Circulars page. 
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
