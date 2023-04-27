@@ -92,7 +92,7 @@ A community of architects will be created over this platform - i.e. asking their
  <h2> Repo Links </h2>
  <ul>
   <li><a href="https://github.com/yuj8fuj6/capstone-frontend-bootcamp" target="_blank" rel="noopener noreferrer"> Frontend<a/></li>
-   <li><a href="https://github.com/hsiupinggay/capstone-backend" target="_blank" rel="noopener noreferrer"> Backend<a/></li>
+   <li><a href="https://github.com/yuj8fuj6/capstone-backend-bootcamp" target="_blank" rel="noopener noreferrer"> Backend<a/></li>
  </ul>
 </div>
 
