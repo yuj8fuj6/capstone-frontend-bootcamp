@@ -34,28 +34,31 @@ www.google.com
 <div id="features">
  <h2> Features </h2>
   <h4> 1. Authentication </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+Users are authenticated either via their emails or google accounts. 
  <br/>
   <h4> 2. 3D Model Display </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+Users can view reference 3D models of different building types with annotations to understand the contexts of various regulatory clauses with visual aids. 
  <br/>
   <h4> 3. Checklist </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+By entering the details of a building profile, users can generate checklists of relevant regulatory clauses that pertains to the building profile, and monitor the progress on complying with the clauses.  
   <br/>
   <h4> 4. Chat Bot </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+A chat bot integrated with ChatGPT provides a platform for the users to ask ad-hoc questions about any regulatory clause that they may need urgent clarification for.  
   <br/>
   <h4> 5. Forum </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+The forums provide users with a medium to form a community to assist each other on the understanding of any regulatory clause that they may have questions about. Officers from the technical agencies may also use this platform to answer the users' queries. 
   <br/>
   <h4> 6. Profile </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+Users can update their personal details and these details would be propagated to other components of the app. 
   <br/>
   <h4> 7. Support </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+Users can enter the relevant queries in the contact form and the submission of the form would send an email to the system administrators or officers from the relevant technical agencies. 
+  <br/>
+  <h4> 8. Circulars </h4>
+Users can view a summary of the lists of the latest circulars from different technical agencies to be up to date on the newest regulations. 
   <br/>
   <h4> 8. Map </h4>
-Kaibo is an app that serves as an assistant to architects, helping architects to navigate through the multiple intractable webs of building regulations.  
+By entering the postal code of any address, users will be able to obtain the planning parameters for the searched address. 
 </div>
 
 <div id="built-with">
@@ -72,13 +75,6 @@ Kaibo is an app that serves as an assistant to architects, helping architects to
     <li>Express.js</li>
     <li>Sequelize/ PostgreSQL</li>
   </ol>
-</div>
-
-<div id="rationale">
- <h2> Rationale for Technologies </h2>
-It will provide checklists for monitoring compliances with regulations from different technical agencies, provide an interactive 3D display for architects to intuitively understand the context of the regulation, and answer any ad-hoc questions regarding regulations that architects may have - i.e. questions that the authorities cannot give a clear answer for quickly. 
- <br/> <br/>
-A community of architects will be created over this platform - i.e. asking their questions via community forums, under the guidance of officers from the different technical agencies. 
 </div>
 
 <div id="rationale">
@@ -108,7 +104,7 @@ In the project directory, you can run:
 
 <div id="start">
  <h2> Starting the Application </h2>
-### `npm start`
+ <h3>`npm start`</h3>
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
