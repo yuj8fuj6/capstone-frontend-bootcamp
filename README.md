@@ -74,10 +74,40 @@ Kaibo is an app that serves as an assistant to architects, helping architects to
   </ol>
 </div>
 
-## Pre-Requisites 
+<div id="rationale">
+ <h2> Rationale for Technologies </h2>
+It will provide checklists for monitoring compliances with regulations from different technical agencies, provide an interactive 3D display for architects to intuitively understand the context of the regulation, and answer any ad-hoc questions regarding regulations that architects may have - i.e. questions that the authorities cannot give a clear answer for quickly. 
+ <br/> <br/>
+A community of architects will be created over this platform - i.e. asking their questions via community forums, under the guidance of officers from the different technical agencies. 
+</div>
 
+<div id="rationale">
+ <h2> Rationale for Technologies </h2>
+It will provide checklists for monitoring compliances with regulations from different technical agencies, provide an interactive 3D display for architects to intuitively understand the context of the regulation, and answer any ad-hoc questions regarding regulations that architects may have - i.e. questions that the authorities cannot give a clear answer for quickly. 
+ <br/> <br/>
+A community of architects will be created over this platform - i.e. asking their questions via community forums, under the guidance of officers from the different technical agencies. 
+</div>
+
+<div id="repo-links">
+ <h2> Repo Links </h2>
+ <ul>
+  <li><a href="https://github.com/yuj8fuj6/capstone-frontend-bootcamp" target="_blank" rel="noopener noreferrer"> Frontend<a/></li>
+   <li><a href="https://github.com/hsiupinggay/capstone-backend" target="_blank" rel="noopener noreferrer"> Backend<a/></li>
+ </ul>
+</div>
+
+<div id="prerequisites">
+ <h2> Pre-Requisites </h2>
 In the project directory, you can run:
+</div>
 
+<div id="installation">
+ <h2> Installation </h2>
+In the project directory, you can run:
+</div>
+
+<div id="start">
+ <h2> Starting the Application </h2>
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -85,15 +115,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-## Installation
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+</div>
