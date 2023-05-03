@@ -1,0 +1,16 @@
+Overall good!
+
+I see you are making improvements in regards to trying your hand coding more dynamically!
+
+Now, we should take this to the next level and really get rid of all duplication. You might think it isn't possible, but it is.
+Let function do the work for us, and define data structures to faciliate that. Sometimes we can refactor a bit only, but
+after having refactored, we see another way to simplify even more. So do just that, try to write more efficient code.
+Try to write less code basically, so we can stop having the feeling of filling in tons of text into an excel sheet :D
+
+Next thing to work on would be to structure your files more. Really abstract as much as possible for now.
+Validation? New file.
+Icons? New file.
+Sections of a form? New file.
+
+Everything that can be deemed a section in your code that is self-contained or logically separated from the rest, we want to create a component for it. Especially if that component could be reusable. That makes it way easier to read through your code
+and still know what is what after 6 months.

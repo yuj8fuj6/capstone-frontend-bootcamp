@@ -8,9 +8,11 @@ import { ChecklistContext } from "../contexts/ChecklistContext";
 import { ModelContext } from "../contexts/ModelContext";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+const omit = require("lodash.omit"); // imports please on top of the file! I think can also use import keyword here
 
 import { BACKEND_URL } from "../constants";
 
+// nice functionality, but very vaguely named for its specific usecase. Either make it generic and name it so anyone could use it, or name it for its specific usecase
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -23,7 +25,11 @@ function getItem(label, key, icon, children, type) {
 
 const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 
+// the whole component is problematic with all the different useEffects based on your entire list of context variables. This is a good example of how problematic top-level architecture decisions, will heavily impact ease of implementation lower down in the chain of data consumption.
+
+// We also see a lot of repetition here, which should be your first warning signal for you to definitely rethink your code and refactor as soon as possible!
 const Checklist = () => {
+  // this list is giving me anxiety. Must have been hard to work with, no? If yes, then you know this is something you should change in your architecture!
   const {
     allAuthorities,
     gfaCodeChecklist,
@@ -53,8 +59,6 @@ const Checklist = () => {
   const { userData, setUserData } = useContext(UserContext);
   const { modelType, setModelType, showAnnotations, setShowAnnotations } =
     useContext(ModelContext);
-
-  const omit = require("lodash.omit");
 
   const [openModal, setOpenModal] = useState(false);
   const [pendingGfaCodeCheck, setPendingGfaCodeCheck] = useState([]);
@@ -238,6 +242,7 @@ const Checklist = () => {
     ]),
   ];
 
+  // this could go into a utils.js
   const includesAll = (arr, values) => values.every((v) => arr.includes(v));
 
   const onClick = async (e) => {

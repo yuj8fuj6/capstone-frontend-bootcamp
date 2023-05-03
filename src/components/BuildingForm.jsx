@@ -112,6 +112,8 @@ const BuildingForm = () => {
 
   const debounce = require("lodash.debounce");
 
+  // i'd move the whole Yup logic into a separate validation file.
+
   const decimalRegex = /^\d+(\.\d{0,2})?$/;
 
   const formValidation = Yup.object().shape({
@@ -208,6 +210,7 @@ const BuildingForm = () => {
     street_name: Yup.string().required("Please enter the required field!"),
   });
 
+  // let's define a defaultState object, wich you can pass into the hook here
   const formik = useFormik({
     initialValues: {
       building_type: "",
@@ -271,6 +274,7 @@ const BuildingForm = () => {
   }, [formik.values]);
 
   const handleSubmit = async (values) => {
+    // const payload = { ...values, user_id: userData.id }
     await axios
       .post(`${BACKEND_URL}/checklists/addBuilding`, {
         building_type: values.building_type,
@@ -292,6 +296,7 @@ const BuildingForm = () => {
         user_id: userData.id,
       })
       .then((res) => {
+        // as mentioned, reducing the context states, will reduce code here heavily.
         setOpenModal(true);
         setGfaCodeChecklist(res.data.model_building.gfa_codes);
         setPlanningCodeChecklist(res.data.model_building.planning_codes);
@@ -312,6 +317,8 @@ const BuildingForm = () => {
       });
   };
 
+  // this is a huge form. I would advise creating a BuildingForm folder within components, and create multiple subcomponents there, which make up this whole form.
+  // something like: components/BuildingForm/components, components/BuildingForm/Form.jsx, components/BuildingForm/utils.js
   return (
     <div>
       <div className="text-base m-2 border-1 rounded-full border-lightgreen">

@@ -14,6 +14,11 @@ import axios from "axios";
 import { Avatar } from "antd";
 import { UserContext } from "../contexts/UserContext";
 
+const SENDERS = {
+  CHATGPT: "chatGPT",
+  USER: "user",
+}
+
 const Chat = () => {
   const { userData, setUserData } = useContext(UserContext);
 
@@ -36,17 +41,13 @@ const Chat = () => {
     const newMessages = [...messages, newMessage];
     setMessages(newMessages);
     setTyping(true);
+    // no need to await this, as it is the last function call within this function
     await postMessageToChatGPT(newMessages);
   };
 
   const postMessageToChatGPT = async (chatMessages) => {
     let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "chatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
+      const role = messageObject.sender === SENDERS.CHATGPT ? "assistant" : "user"
       return { role: role, content: messageObject.message };
     });
 
@@ -66,7 +67,7 @@ const Chat = () => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", // I think this is the default content-type usually for axios.
             Authorization: "Bearer " + process.env.REACT_APP_CHATGPT_API_KEY,
           },
         },
@@ -91,20 +92,20 @@ const Chat = () => {
             <ChatContainer>
               <MessageList
                 typingIndicator={
-                  typing ? (
+                  typing && (
                     <TypingIndicator content="Kaibo AI is typing ..." />
-                  ) : null
+                  )
                 }
                 disableOnYReachWhenNoScroll={true}
                 autoScrollToBottomOnMount={true}
                 autoScrollToBottom={true}
-                onYReachEnd={() => console.log("onYReachEnd")}
+                onYReachEnd={() => console.log("onYReachEnd")} // functionality beyond a console.log would be good!
                 onYReachStart={() => console.log("onYReachStart")}
-                // className="w-full h-[1000px] overscroll-auto"
+                // className="w-full h-[1000px] overscroll-auto" // remove comments in production code
               >
                 {messages.map((message, index) => (
                   <div className="flex flex-row flex-wrap items-center">
-                    {message.sender === "chatGPT" && (
+                    {message.sender === SENDERS.CHATGPT && (
                       <Avatar
                         src={
                           "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/chatgpt-icon.png"
@@ -117,7 +118,7 @@ const Chat = () => {
                       key={index}
                       className="text-left text-xs w-3/4"
                     />
-                    {message.sender === "user" && (
+                    {message.sender === SENDERS.USER && (
                       <Avatar src={userData.photo_url} name={userData.name} />
                     )}
                   </div>

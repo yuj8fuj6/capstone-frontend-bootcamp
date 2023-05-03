@@ -1,4 +1,4 @@
-export const textVariant = (delay) => {
+export const getTextVariant = (delay) => { // functions always named like actions/verbs
   return {
     hidden: {
       y: -50,

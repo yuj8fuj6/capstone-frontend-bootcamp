@@ -110,6 +110,36 @@ const ModalChecklist = (props) => {
 
   // GFA Code
 
+  // everything very repetitive. We should be able to write functions to handle this a bit better.
+
+  /* 
+  
+  const makePOST = async (url, body, callback) => {
+    await axios
+      .post(url, body)
+      .then(callback)
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  makePOST(`${BACKEND_URL}/checklists/checkGfaCode`, 
+  {
+        gfa_code_id: pendingGfaCodeCheck[index].id,
+        check: true,
+        building_id: allBuildings[0].id,
+        user_id: userData.id,
+  },
+  (res) => {
+    setCompletedGfaCodeCheck([...completedGfaCodeCheck, res.data.gfa_code]);
+    setPendingGfaCodeCheck([...pendingGfaCodeCheck, res.data.gfa_code]);
+  }
+  )
+
+  Not perfect, but something along these lines. With a bit more thinking can surely come up with even nicer code.
+  Ideally we got a generic handler function, instead of redefining these. Then handle all this dynamically by some attribute on the handle html elements (button for example)
+  
+  */
   const handlePendingGfaClick = async (index) => {
     await axios
       .post(`${BACKEND_URL}/checklists/checkGfaCode`, {
@@ -324,6 +354,8 @@ const ModalChecklist = (props) => {
       });
   };
 
+
+  // define more sub-components for this. Way too long, would never understand the code here easily.
   return (
     <>
       <Modal

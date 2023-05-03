@@ -10,6 +10,7 @@ export const CircularContextProvider = (props) => {
   const [bcaData, setBcaData] = useState([]);
   const [scdfData, setScdfData] = useState([]);
 
+  // if our usecase involves getting all circulars, maybe have an endpoint that returns them all. We could make that endpoint flexible by letting the client decide which circulars it wants as well.
   useEffect(() => {
     axios.get(`${BACKEND_SCRAPER_URL}/circulars/ura`).then((res) => {
       setUraData(res.data);
