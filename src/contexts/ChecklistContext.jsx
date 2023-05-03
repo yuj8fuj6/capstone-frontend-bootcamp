@@ -7,6 +7,7 @@ import { BACKEND_URL } from "../constants";
 
 export const ChecklistContext = createContext();
 
+// I feel that we are doing too much here. Maybe we could create a single endpoint that returns you the necessary data in one object, instead of making so many states and API calls here.
 export const ChecklistContextProvider = (props) => {
   const [allAuthorities, setAllAuthorities] = useState([]);
   const [allBuildings, setAllBuildings] = useState([]);
@@ -34,6 +35,27 @@ export const ChecklistContextProvider = (props) => {
 
   const { isLoading, isAuthenticated } = useAuth0();
 
+  /*
+
+    I'd recommend a single or two state objects carrying the data like so:
+
+    authorities/buildings {
+      authorities: {},
+      buildings: {},
+    }
+
+    checklists {
+      gfa: {},
+      planning: {},
+      accessibility: {},
+      building: {},
+      fire: {},
+    }
+
+    That way you only need to make 2 state updates in this component, and ideally group that also into 1-2 endpoints.
+
+   */
+
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       axios
@@ -47,10 +69,13 @@ export const ChecklistContextProvider = (props) => {
           axios.get(`${BACKEND_URL}/checklists/getAllCheckedFire`),
         ])
         .then(
+          // naming here could be better.
+          // Example: authoritiesData, buildingsData, checkedGfaData etc.
           axios.spread((data1, data2, data3, data4, data5, data6, data7) => {
             const selectedBuildingId = data2.data[0].id;
             setAllAuthorities(data1.data);
             setAllBuildings(data2.data);
+            // anytime you access keys of possibly undefined objects, you possibly create bugs in your system.
             setGfaCodeChecklist(data2.data[0].model_building.gfa_codes);
             setPlanningCodeChecklist(
               data2.data[0].model_building.planning_codes,
@@ -94,6 +119,7 @@ export const ChecklistContextProvider = (props) => {
 
   return (
     <ChecklistContext.Provider
+    // if you implement state changes as suggested above, you would only need to pass down a maximum of 4 values here. Way easier to manage the data.
       value={{
         allAuthorities,
         gfaCodeChecklist,

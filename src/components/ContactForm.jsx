@@ -8,6 +8,7 @@ import axios from "axios";
 import { Modal } from "antd";
 import { BsCheckCircle } from "react-icons/bs";
 
+// lots of repetition, try it dynamically!
 const issueOptions = [
   { value: "", label: "Choose the relevant issue!" },
   {
@@ -189,6 +190,7 @@ const ContactForm = () => {
     photo_url,
   } = userData;
 
+  // using these \n line breaks feels wonky. Better to integrate this into a proper layout via CSS
   const personalDetails = `Name: ${name}\nFirm: ${firm}\nDesignation: ${designation}\nProfessional Reg. No.: ${professional_no}\nContact No.: ${contact_no}\nContact Email: ${email} `;
   const abbreviatedPersonalDetails = `Contact Email: ${email}`;
 
@@ -246,17 +248,21 @@ const ContactForm = () => {
 
   useEffect(() => {
     if (
+      // quite creative to make the comparison like this. you can check out lodash to deep compare objects!
       !(JSON.stringify(formik.values) === JSON.stringify(formik.initialValues))
     ) {
       setStateChange(false);
     }
   }, [formik.values]);
 
+  // this is a boolean, so should be named as such.
+  // isOutDatedReport for example
   const formCondition =
     formik.values.issue == "Report outdated regulation/ clause" ||
     formik.values.issue ==
       "Request for Pre-consultation with relevant authority";
 
+      // huge form, would make sense to refactor as suggested with BuildingForm
   return (
     <div className="text-darkgreen grid grid-cols-10">
       <Modal

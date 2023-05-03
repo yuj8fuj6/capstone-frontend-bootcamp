@@ -20,6 +20,8 @@ const authorityOptions = [
   { value: 3, label: 3 },
 ];
 
+// seeing repetition here again.
+// we could write a function to generate n amount of these objects, which have the same value and label. An array of strings would be sufficient here for data definition.
 const codeOptions = [
   { value: null, label: "Code" },
   {
@@ -125,6 +127,7 @@ const CommentList = (props) => {
   const { modelType, setModelType, showAnnotations, setShowAnnotations } =
     useContext(ModelContext);
 
+    // yup in validation file
   const postFormValidation = Yup.object().shape({
     content: Yup.string().required("Please enter the required field!"),
   });
@@ -151,6 +154,7 @@ const CommentList = (props) => {
   }, [formik.values]);
 
   const handleSubmit = async (values, actions) => {
+    // const payload = { ...values, user_id: userID } or include userID in the values
     await axios
       .post(`${BACKEND_URL}/comments/addPost`, {
         authority_id: values.authority_id,
@@ -200,6 +204,7 @@ const CommentList = (props) => {
           >
             {makeOption(authorityOptions)}
           </select>
+          {/* I think could render these selects dynamically. makeSelects() */}
           <select
             tabIndex={0}
             id="code"
@@ -266,6 +271,7 @@ const CommentList = (props) => {
                 className="rounded-full"
               />
             ) : (
+              // the icon could be an own component
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill-rule="evenodd"

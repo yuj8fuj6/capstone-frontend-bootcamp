@@ -19,6 +19,7 @@ const MapSearch = () => {
     address: address,
   };
 
+  // move validation to another file
   const postalCodeValidation = Yup.object().shape({
     postal_code: Yup.string()
       .required("Input a valid postal code!")
@@ -35,6 +36,19 @@ const MapSearch = () => {
       .then((res) => {
         const { data } = res;
         const location = data.results[0];
+        // why not a single object for all location state?
+        /* 
+        
+        {
+          address: ...,
+          location: {
+            lat: ...,
+            long: ...,
+          },
+          postalCode: ...,
+        }
+        
+        */
         setAddress(location.ADDRESS);
         setLocationData([location.LATITUDE, location.LONGITUDE]);
         setAddressNoPostalCode(`${location.BLK_NO} ${location.ROAD_NAME}`);
@@ -79,6 +93,7 @@ const MapSearch = () => {
       });
   }, [addressNoPostalCode]);
 
+  // this could live outside of the component, in a utils file even
   const stingifyKey = (str) => {
     var i,
       frags = str.split("_");
@@ -116,11 +131,11 @@ const MapSearch = () => {
                 onBlur={props.handleBlur}
                 placeholder="Input 6-digit Postal Code here!"
               />
-              {props.errors.postal_code && props.touched.postal_code ? (
+              {props.errors.postal_code && props.touched.postal_code && (
                 <div className="text-xs text-red-600 text-left">
                   {props.errors.postal_code}
                 </div>
-              ) : null}
+              )}
               <button
                 className="rounded-full border-2 border-darkgreen p-1 font-bold mt-4 hover:bg-lightgreen w-1/5 text-sm"
                 type="submit"
@@ -144,23 +159,23 @@ const MapSearch = () => {
               <div className="rounded-xl h-[450px] text-sm font-normal p-3 bg-white text-left">
                 <h1 className="font-bold text-base">Planning Parameters</h1>
                 {planningType
-                  ? Object.entries(planningType).map(([key, value], i) => (
+                  && Object.entries(planningType).map(([key, value], i) => (
                       <li key={i}>
                         {stingifyKey(key)} :{" "}
                         <span className="font-bold">{value}</span>
                       </li>
                     ))
-                  : null}
+                  }
                 <div className="rounded-xl border-1 drop-shadow-md bg-white w-full px-2 mt-2 overflow-auto h-[175px]">
                   <h1 className="font-bold">Recent Planning Decisions</h1>
                   {planningParam
-                    ? Object.entries(planningParam).map(([key, value], i) => (
+                    && Object.entries(planningParam).map(([key, value], i) => (
                         <li key={i} className="text-xs">
                           {stingifyKey(key)} :{" "}
                           <span className="font-bold">{value}</span>
                         </li>
                       ))
-                    : null}
+                    }
                 </div>
               </div>
             </Form>

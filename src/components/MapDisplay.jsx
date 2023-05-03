@@ -7,9 +7,8 @@ import { MapContext } from "../contexts/MapContext";
 const zoomLevel = 17;
 
 const MapDisplay = () => {
-  const { locationData, setLocationData } = useContext(MapContext);
-
-  const center = locationData;
+  // renaming done like so
+  const { locationData: center, setLocationData } = useContext(MapContext);
 
   const LeafIcon = L.Icon.extend({
     options: {},
@@ -20,7 +19,7 @@ const MapDisplay = () => {
       "https://chart.googleapis.com/chart?chst=d_map_xpin_icon_withshadow&chld=pin_star|home|FF0000|FFFF00",
   });
 
-  // set view
+  // set view, redundant comment
   function SetViewComponent() {
     const map = useMap();
     useEffect(() => {
